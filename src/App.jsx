@@ -1066,13 +1066,14 @@ const Experience = () => {
             ]
         },
         {
-            title: "IT Asset Data Analyst",
-            company: "OKLAHOMA STATE UNIVERSITY",
-            date: "AUG 2023 – MAY 2024",
+            title: "Business Intelligence Intern",
+            company: "INTERWORKS",
+            date: "MAY 2024 – AUG 2024",
             achievements: [
-                "Analyzed institutional data using SQL Server and Python, performed quality audits across multiple units",
-                "Developed reports using Python and Excel PowerQuery, reducing manual processing by 50%",
-                "Built BI reports and dashboards, communicated findings to stakeholders"
+                "Collaborated with BI consultants to enhance NHS England's population analytics dashboards in Tableau Cloud, improving accessibility and performance for over 5 billion health records",
+                "Designed interactive, parameter-driven dashboards that allowed end users to analyze regional and demographic trends efficiently",
+                "Authored end-user documentation and data reference guides to improve usability and adoption of analytics tools among non-technical audiences",
+                "Supported data validation and quality assurance for published dashboards, ensuring consistency across data sources and visual layers"
             ]
         },
         {
