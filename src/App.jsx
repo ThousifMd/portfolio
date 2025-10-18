@@ -1067,10 +1067,14 @@ const styles = `
     .nav-container {
       padding: 0 1rem;
       justify-content: space-between;
+      align-items: center;
     }
 
     .logo {
       font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      height: 100%;
     }
 
     .hamburger {
@@ -1079,7 +1083,9 @@ const styles = `
       gap: 4px;
       cursor: pointer;
       z-index: 1001;
-      margin-right: 1rem;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
     }
 
     .hamburger span {
@@ -1133,6 +1139,68 @@ const styles = `
     .nav-link:hover {
       background: rgba(255, 255, 255, 0.1);
       padding-left: 1rem;
+    }
+
+    .theme-toggle-menu-item {
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      margin-top: 1rem;
+      padding-top: 1rem;
+    }
+
+    .theme-toggle-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 0;
+      color: white;
+    }
+
+    .theme-label {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .sliding-toggle {
+      width: 60px;
+      height: 30px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .sliding-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .toggle-slider {
+      width: 26px;
+      height: 26px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .toggle-slider.light {
+      transform: translateX(30px);
+      background: #ffd700;
+    }
+
+    .toggle-slider.dark {
+      transform: translateX(0);
+      background: #2c3e50;
+    }
+
+    .toggle-icon {
+      font-size: 0.8rem;
     }
 
     /* Mobile Hero Section */
@@ -1346,17 +1414,11 @@ const styles = `
       display: none;
     }
 
-    /* Theme toggle mobile positioning */
+    /* Hide desktop theme toggle on mobile */
     .theme-toggle {
-      top: 1rem;
-      right: 4rem;
-      width: 45px;
-      height: 45px;
+      display: none;
     }
 
-    .theme-icon {
-      font-size: 1.2rem;
-    }
   }
 
   /* Extra small devices */
@@ -1385,8 +1447,12 @@ const styles = `
       padding: 0 0.8rem;
     }
 
-    .theme-toggle {
-      right: 3.5rem;
+  }
+
+  /* Hide mobile theme toggle on desktop */
+  @media (min-width: 769px) {
+    .theme-toggle-menu-item {
+      display: none;
     }
   }
 `;
@@ -1428,6 +1494,7 @@ const ThemeToggle = () => {
 const Navigation = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const [isDark, setIsDark] = useState(true);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -1436,6 +1503,22 @@ const Navigation = () => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    useEffect(() => {
+        // Check for saved theme preference or default to dark
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setIsDark(savedTheme === 'dark');
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+    }, []);
+
+    const toggleTheme = () => {
+        const newTheme = isDark ? 'light' : 'dark';
+        setIsDark(!isDark);
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    };
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -1483,6 +1566,16 @@ const Navigation = () => {
                     <li><a className="nav-link" style={{ color: 'white !important' }} onClick={() => scrollToSection('experience')}>EXPERIENCE</a></li>
                     <li><a className="nav-link" style={{ color: 'white !important' }} onClick={() => scrollToSection('projects')}>PROJECTS</a></li>
                     <li><a className="nav-link" style={{ color: 'white !important' }} onClick={() => scrollToSection('education')}>EDUCATION</a></li>
+                    <li className="theme-toggle-menu-item">
+                        <div className="theme-toggle-container">
+                            <span className="theme-label">{isDark ? 'Dark' : 'Light'}</span>
+                            <div className="sliding-toggle" onClick={toggleTheme}>
+                                <div className={`toggle-slider ${isDark ? 'dark' : 'light'}`}>
+                                    <span className="toggle-icon">{isDark ? '🌙' : '☀️'}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </nav>
