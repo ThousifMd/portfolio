@@ -1066,6 +1066,7 @@ const styles = `
 
     .nav-container {
       padding: 0 1rem;
+      justify-content: space-between;
     }
 
     .logo {
@@ -1078,6 +1079,7 @@ const styles = `
       gap: 4px;
       cursor: pointer;
       z-index: 1001;
+      margin-right: 1rem;
     }
 
     .hamburger span {
@@ -1347,7 +1349,7 @@ const styles = `
     /* Theme toggle mobile positioning */
     .theme-toggle {
       top: 1rem;
-      right: 1rem;
+      right: 4rem;
       width: 45px;
       height: 45px;
     }
@@ -1381,6 +1383,10 @@ const styles = `
 
     .container {
       padding: 0 0.8rem;
+    }
+
+    .theme-toggle {
+      right: 3.5rem;
     }
   }
 `;
