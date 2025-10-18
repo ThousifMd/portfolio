@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-// Styles
+// Styles - Updated for navigation visibility fix
 const styles = `
   * {
     margin: 0;
@@ -17,18 +17,224 @@ const styles = `
     --white: #ffffff;
   }
 
+  [data-theme="light"] {
+    --black: #ffffff;
+    --darkgrey: #f8f9fa;
+    --grey: #dee2e6;
+    --midgrey: #6c757d;
+    --lightgrey: #343a40;
+    --white: #000000;
+  }
+
+  [data-theme="light"] .nav {
+    background: rgba(0, 0, 0, 0.95);
+    border-bottom: 1px solid #404040;
+  }
+
+  [data-theme="light"] .nav-link {
+    color: #000000 !important;
+  }
+
+  [data-theme="light"] .nav-link:hover {
+    color: #000000 !important;
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  [data-theme="light"] .logo {
+    color: #000000 !important;
+  }
+
+  [data-theme="light"] .logo span {
+    color: #000000 !important;
+    opacity: 0.7;
+  }
+
+  [data-theme="light"] .hero h1 {
+    color: #000000;
+  }
+
+  [data-theme="light"] .hero .subtitle {
+    color: #343a40;
+  }
+
+  [data-theme="light"] .section-title {
+    color: #000000;
+  }
+
+  [data-theme="light"] .section-title::after {
+    background: #000000;
+  }
+
+  [data-theme="light"] .about-content {
+    color: #343a40;
+  }
+
+  [data-theme="light"] .project-card {
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    border: 1px solid #dee2e6;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  [data-theme="light"] .project-header {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-bottom: 2px solid #dee2e6;
+  }
+
+  [data-theme="light"] .project-header h3 {
+    background: linear-gradient(135deg, #000000 0%, #343a40 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  [data-theme="light"] .project-tech {
+    color: #6c757d;
+  }
+
+  [data-theme="light"] .project-body {
+    background: rgba(248, 249, 250, 0.5);
+  }
+
+  [data-theme="light"] .project-body ul {
+    color: #343a40;
+  }
+
+  [data-theme="light"] .project-body li::before {
+    color: #000000;
+  }
+
+  [data-theme="light"] .skill-card {
+    background: #ffffff;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  [data-theme="light"] .skill-card h3 {
+    color: #000000;
+  }
+
+  [data-theme="light"] .skill-card li {
+    color: #343a40;
+  }
+
+  [data-theme="light"] .skill-card li::before {
+    color: #000000;
+  }
+
+  [data-theme="light"] .contact-item {
+    background: rgba(248, 249, 250, 0.8);
+    border: 1px solid #dee2e6;
+    color: #000000;
+  }
+
+  [data-theme="light"] .contact-item:hover {
+    border-color: #000000;
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  [data-theme="light"] .timeline-content {
+    background: #ffffff;
+    border-left: 2px solid #dee2e6;
+  }
+
+  [data-theme="light"] .timeline-content h3 {
+    color: #000000;
+  }
+
+  [data-theme="light"] .timeline-content .date {
+    color: #6c757d;
+  }
+
+  [data-theme="light"] .timeline-content ul {
+    color: #343a40;
+  }
+
+  [data-theme="light"] .edu-card, 
+  [data-theme="light"] .cert-card {
+    background: #ffffff;
+    border-left: 3px solid #000000;
+  }
+
+  [data-theme="light"] .edu-card h3, 
+  [data-theme="light"] .cert-card h3 {
+    color: #000000;
+  }
+
+  [data-theme="light"] .edu-card .date, 
+  [data-theme="light"] .cert-card .issuer {
+    color: #6c757d;
+  }
+
+  [data-theme="light"] .edu-card p, 
+  [data-theme="light"] .cert-card p {
+    color: #343a40;
+  }
+
+  [data-theme="light"] footer {
+    background: #ffffff;
+    color: #343a40;
+    border-top: 1px solid #dee2e6;
+  }
+
+  [data-theme="light"] .social-links a {
+    color: #343a40;
+    border: 2px solid #dee2e6;
+  }
+
+  [data-theme="light"] .social-links a:hover {
+    color: #000000;
+    border-color: #000000;
+  }
+
+  [data-theme="light"] .theme-toggle {
+    border: 1px solid #dee2e6;
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  [data-theme="light"] .theme-toggle:hover {
+    border-color: #000000;
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  [data-theme="light"] .theme-icon {
+    color: #000000 !important;
+  }
+
+  [data-theme="light"] .theme-toggle:hover .theme-icon {
+    color: #000000 !important;
+  }
+
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     line-height: 1.6;
     color: var(--white);
     background: var(--black);
     overflow-x: hidden;
+    transition: all 0.3s ease;
   }
 
-  @media (hover: hover) and (pointer: fine) {
-    body, a, button {
-      cursor: none;
-    }
+  /* FORCE WHITE TEXT - SIMPLE */
+  .nav * {
+    color: white !important;
+  }
+
+  /* KEEP WHITE TEXT IN LIGHT THEME TOO */
+  [data-theme="light"] .nav * {
+    color: white !important;
+  }
+  
+  /* SPECIFICALLY FORCE LOGO SPAN TO BE GREY IN LIGHT THEME */
+  [data-theme="light"] .logo span {
+    color: #888888 !important;
+    opacity: 1 !important;
+    font-size: 1.2rem !important;
+    font-style: italic !important;
+  }
+
+  /* Restore mouse pointer */
+  body, a, button {
+    cursor: auto !important;
   }
 
   .nav {
@@ -37,7 +243,7 @@ const styles = `
     width: 100%;
     background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--grey);
+    border-bottom: 1px solid #404040;
     z-index: 1000;
     padding: 1.5rem 0;
     transition: all 0.3s;
@@ -55,14 +261,16 @@ const styles = `
   .logo {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--white);
     letter-spacing: -1px;
     cursor: pointer;
   }
 
   .logo span {
-    color: var(--midgrey);
     font-weight: 300;
+    opacity: 1;
+    color: #888888;
+    font-size: 1.2rem;
+    font-style: italic;
   }
 
   .logo:hover {
@@ -85,15 +293,17 @@ const styles = `
 
   .nav-link {
     text-decoration: none;
-    color: var(--lightgrey);
-    font-weight: 400;
+    font-weight: 600;
     font-size: 0.95rem;
-    transition: color 0.3s;
+    transition: all 0.3s ease;
     letter-spacing: 0.5px;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
   }
 
   .nav-link:hover {
-    color: var(--white);
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
   }
 
   .hamburger {
@@ -121,6 +331,43 @@ const styles = `
 
   .hamburger.active span:nth-child(3) {
     transform: rotate(-45deg) translate(8px, -8px);
+  }
+
+  .theme-toggle {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--grey);
+    border-radius: 50px;
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    backdrop-filter: blur(10px);
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--white);
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .theme-icon {
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+    color: #ffffff !important;
+  }
+
+  .theme-toggle:hover .theme-icon {
+    color: #ffffff !important;
+    transform: rotate(180deg);
   }
 
   .hero {
@@ -396,9 +643,10 @@ const styles = `
   }
 
   .skill-card {
-    background: var(--darkgrey);
-    padding: 2.5rem;
-    border: 1px solid var(--grey);
+    background: var(--dark-light);
+    padding: 2rem;
+    border: 1px solid rgba(100, 116, 139, 0.2);
+    border-radius: 16px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     opacity: 0;
@@ -423,9 +671,9 @@ const styles = `
   }
 
   .skill-card:hover {
-    transform: translateY(-15px) scale(1.02);
-    border-color: var(--white);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+    transform: translateY(-10px);
+    border-color: var(--primary);
+    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
   }
 
   .skill-card:hover::before {
@@ -446,7 +694,7 @@ const styles = `
 
   .skill-card li {
     padding: 0.6rem 0;
-    color: var(--lightgrey);
+    color: var(--gray-light);
     position: relative;
     padding-left: 1.5rem;
     font-size: 0.95rem;
@@ -566,19 +814,22 @@ const styles = `
   }
 
   .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 2rem 0;
   }
 
   .project-card {
-    background: var(--darkgrey);
+    background: linear-gradient(145deg, var(--darkgrey) 0%, #2a2a2a 100%);
     border: 1px solid var(--grey);
+    border-radius: 20px;
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     opacity: 0;
     transform: translateY(30px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   }
 
   .project-card.visible {
@@ -601,7 +852,7 @@ const styles = `
   .project-card:hover {
     transform: translateY(-15px) scale(1.02);
     border-color: var(--white);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
   }
 
   .project-card:hover::after {
@@ -614,26 +865,65 @@ const styles = `
   }
 
   .project-header {
-    background: var(--black);
+    background: linear-gradient(135deg, var(--black) 0%, #1a1a1a 100%);
     color: white;
     padding: 2.5rem;
     border-bottom: 2px solid var(--grey);
+    position: relative;
+  }
+
+  .project-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+    background-size: 300% 100%;
+    animation: gradientShift 3s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .project-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .project-icon {
+    font-size: 3rem;
+    opacity: 0.9;
+    flex-shrink: 0;
   }
 
   .project-header h3 {
-    font-size: 1.5rem;
-    margin-bottom: 0.8rem;
-    font-weight: 600;
+    font-size: 2.2rem;
+    margin-bottom: 1.2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    flex: 1;
   }
 
   .project-tech {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: var(--midgrey);
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
+    font-weight: 500;
+    text-transform: uppercase;
+    opacity: 0.8;
   }
 
   .project-body {
-    padding: 2rem;
+    padding: 2.5rem;
+    background: rgba(0, 0, 0, 0.2);
   }
 
   .project-body ul {
@@ -642,9 +932,22 @@ const styles = `
   }
 
   .project-body li {
-    margin: 0.9rem 0;
-    font-size: 0.95rem;
-    line-height: 1.7;
+    margin: 1.5rem 0;
+    font-size: 1.15rem;
+    line-height: 1.9;
+    position: relative;
+    padding-left: 1.5rem;
+    font-weight: 400;
+  }
+
+  .project-body li::before {
+    content: '●';
+    position: absolute;
+    left: -1.5rem;
+    color: var(--white);
+    font-size: 1.2rem;
+    opacity: 0.8;
+    font-weight: bold;
   }
 
   #education {
@@ -777,8 +1080,12 @@ const styles = `
       display: block;
     }
 
-    .skills-grid, .projects-grid {
+    .skills-grid {
       grid-template-columns: 1fr;
+    }
+
+    .projects-grid {
+      gap: 2.5rem;
     }
 
     section {
@@ -804,6 +1111,39 @@ const styles = `
     }
   }
 `;
+
+// Theme Toggle Component
+const ThemeToggle = () => {
+    const [isDark, setIsDark] = useState(true);
+
+    useEffect(() => {
+        // Check for saved theme preference or default to dark
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setIsDark(savedTheme === 'dark');
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+    }, []);
+
+    const toggleTheme = () => {
+        const newTheme = isDark ? 'light' : 'dark';
+        setIsDark(!isDark);
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    };
+
+    return (
+        <div
+            className={`theme-toggle ${isDark ? 'dark' : 'light'}`}
+            onClick={toggleTheme}
+            title={`Switch to ${isDark ? 'light' : 'dark'} theme`}
+        >
+            <span className="theme-icon">
+                {isDark ? '☀️' : '🌙'}
+            </span>
+        </div>
+    );
+};
 
 // Navigation Component
 const Navigation = () => {
@@ -832,18 +1172,18 @@ const Navigation = () => {
             boxShadow: scrolled ? '0 4px 20px rgba(0, 0, 0, 0.5)' : 'none'
         }}>
             <div className="nav-container">
-                <div className="logo">THOUSIF<span>.DEV</span></div>
+                <div className="logo" style={{ color: 'white !important' }}>THOUSIF<span style={{ color: 'white !important' }}>.DEV</span></div>
                 <div className={`hamburger ${isMenuOpen ? 'active' : ''}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
                     <span></span>
                     <span></span>
                     <span></span>
                 </div>
                 <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
-                    <li><a className="nav-link" onClick={() => scrollToSection('about')}>ABOUT</a></li>
-                    <li><a className="nav-link" onClick={() => scrollToSection('skills')}>SKILLS</a></li>
-                    <li><a className="nav-link" onClick={() => scrollToSection('experience')}>EXPERIENCE</a></li>
-                    <li><a className="nav-link" onClick={() => scrollToSection('projects')}>PROJECTS</a></li>
-                    <li><a className="nav-link" onClick={() => scrollToSection('education')}>EDUCATION</a></li>
+                    <li><a className="nav-link" style={{ color: 'white !important' }} onClick={() => scrollToSection('about')}>ABOUT</a></li>
+                    <li><a className="nav-link" style={{ color: 'white !important' }} onClick={() => scrollToSection('skills')}>SKILLS</a></li>
+                    <li><a className="nav-link" style={{ color: 'white !important' }} onClick={() => scrollToSection('experience')}>EXPERIENCE</a></li>
+                    <li><a className="nav-link" style={{ color: 'white !important' }} onClick={() => scrollToSection('projects')}>PROJECTS</a></li>
+                    <li><a className="nav-link" style={{ color: 'white !important' }} onClick={() => scrollToSection('education')}>EDUCATION</a></li>
                 </ul>
             </div>
         </nav>
@@ -914,8 +1254,8 @@ const About = () => {
         <section id="about">
             <div className="container">
                 <h2 ref={titleRef} className={`section-title ${isTitleVisible ? 'visible' : ''}`}>ABOUT</h2>
-        <div className="about-content">
-          <p>Data professional with 3+ years of experience in analytics, data quality, and integration across enterprise systems. Skilled in SQL, Python, Tableau, and Snowflake, with a strong track record of building scalable data workflows, defining KPIs, conducting A/B tests, and delivering insights that drive product decisions. Experienced in dbt, AWS, cohort analysis, and behavioral analytics tools, and passionate about turning complex data into actionable strategies.</p>
+                <div className="about-content">
+                    <p>Data professional with 3+ years of experience in analytics, data quality, and integration across enterprise systems. Skilled in SQL, Python, Tableau, and Snowflake, with a strong track record of building scalable data workflows, defining KPIs, conducting A/B tests, and delivering insights that drive product decisions. Experienced in dbt, AWS, cohort analysis, and behavioral analytics tools, and passionate about turning complex data into actionable strategies.</p>
 
                     <div className="contact-info">
                         <div className="contact-item">
@@ -966,53 +1306,53 @@ const Skills = () => {
     const titleRef = useRef(null);
     const isTitleVisible = useIntersectionObserver(titleRef);
 
-  const skillsData = [
-    {
-      title: "Data Analytics & Experimentation",
-      items: [
-        "Advanced SQL (CTEs, Window Functions)",
-        "KPI Definition and Tracking",
-        "Funnel and Cohort Analysis",
-        "A/B Testing, Statistical Modelling (Python, R)"
-      ]
-    },
-    {
-      title: "Data Engineering & Warehousing",
-      items: [
-        "Snowflake, SQL Server, dbt",
-        "ELT Pipelines, Dimensional Modelling",
-        "Data Validation and Profiling",
-        "AWS (S3, Lambda, Redshift, CloudWatch)"
-      ]
-    },
-    {
-      title: "Visualization & Tools",
-      items: [
-        "Tableau, Amplitude/Mixpanel",
-        "Excel (Advanced Formulas)",
-        "Data Storytelling",
-        "Interactive Dashboard Development"
-      ]
-    },
-    {
-      title: "Programming & Cloud",
-      items: [
-        "Python (pandas, NumPy, API Integration)",
-        "AWS CloudFront, PostgreSQL",
-        "Git/GitHub, Jira, CI/CD",
-        "Docker, Azure Data Studio"
-      ]
-    },
-    {
-      title: "Collaboration & Methodologies",
-      items: [
-        "Cross-Functional Teamwork",
-        "Stakeholder Communication",
-        "Agile/Scrum Practices",
-        "Sprint Planning & Feature Development"
-      ]
-    }
-  ];
+    const skillsData = [
+        {
+            title: "Data Analytics & Experimentation",
+            items: [
+                "Advanced SQL (CTEs, Window Functions)",
+                "KPI Definition and Tracking",
+                "Funnel and Cohort Analysis",
+                "A/B Testing, Statistical Modelling (Python, R)"
+            ]
+        },
+        {
+            title: "Data Engineering & Warehousing",
+            items: [
+                "Snowflake, SQL Server, dbt",
+                "ELT Pipelines, Dimensional Modelling",
+                "Data Validation and Profiling",
+                "AWS (S3, Lambda, Redshift, CloudWatch)"
+            ]
+        },
+        {
+            title: "Visualization & Tools",
+            items: [
+                "Tableau, Amplitude/Mixpanel",
+                "Excel (Advanced Formulas)",
+                "Data Storytelling",
+                "Interactive Dashboard Development"
+            ]
+        },
+        {
+            title: "Programming & Cloud",
+            items: [
+                "Python (pandas, NumPy, API Integration)",
+                "AWS CloudFront, PostgreSQL",
+                "Git/GitHub, Jira, CI/CD",
+                "Docker, Azure Data Studio"
+            ]
+        },
+        {
+            title: "Collaboration & Methodologies",
+            items: [
+                "Cross-Functional Teamwork",
+                "Stakeholder Communication",
+                "Agile/Scrum Practices",
+                "Sprint Planning & Feature Development"
+            ]
+        }
+    ];
 
     return (
         <section id="skills">
@@ -1053,41 +1393,41 @@ const Experience = () => {
     const titleRef = useRef(null);
     const isTitleVisible = useIntersectionObserver(titleRef);
 
-  const experiences = [
-    {
-      title: "Data Analyst",
-      company: "OKLAHOMA STATE UNIVERSITY - IT",
-      date: "AUG 2024 – MAY 2025",
-      achievements: [
-        "Automated integration of HR, finance, and academic data using Python, SQL Server, and AWS S3, reducing manual updates by 40% and improving data reliability across reporting systems",
-        "Built validation pipelines with CTEs and window functions to detect anomalies and ensure high-quality data for dashboards, enabling data-driven decision-making by leadership",
-        "Defined and tracked KPIs, conducted cohort and funnel analysis, and supported A/B testing initiatives to align analytics outcomes with business and product objectives",
-        "Designed interactive Tableau dashboards and Excel reports showing data quality trends and operational metrics, improving communication and reporting efficiency by 25%"
-      ]
-    },
-    {
-      title: "Business Intelligence Intern",
-      company: "INTERWORKS",
-      date: "MAY 2024 – AUG 2024",
-      achievements: [
-        "Enhanced NHS England's population analytics dashboards in Tableau Cloud, improving performance and usability for over 5 billion health records used in strategic planning",
-        "Designed parameterized dashboards to visualize cohort behavior, retention, and demographic trends, enabling stakeholders to make faster, evidence-based decisions",
-        "Developed and executed data validation workflows across multiple sources and authored documentation that increased adoption of analytics solutions by non-technical teams",
-        "Collaborated using Git/GitHub, Jira, and agile practices, contributing to sprint planning and cross-functional feature development"
-      ]
-    },
-    {
-      title: "Data Analyst",
-      company: "COGNIZANT TECHNOLOGY SOLUTIONS",
-      date: "OCT 2021 – JUN 2022",
-      achievements: [
-        "Analyzed 1TB+ weekly Salesforce IoT device data using complex SQL in AWS Redshift, driving 15% increase in device monetization",
-        "Improved data quality by 25% using Python and AWS Glue, reducing dashboard query latency by 40%",
-        "Delivered interactive Tableau dashboards capturing $200K in new revenue opportunities",
-        "Monitored data accuracy in CloudWatch, preventing $100K in potential penalties"
-      ]
-    }
-  ];
+    const experiences = [
+        {
+            title: "Data Analyst",
+            company: "OKLAHOMA STATE UNIVERSITY - IT",
+            date: "AUG 2024 – MAY 2025",
+            achievements: [
+                "Automated integration of HR, finance, and academic data using Python, SQL Server, and AWS S3, reducing manual updates by 40% and improving data reliability across reporting systems",
+                "Built validation pipelines with CTEs and window functions to detect anomalies and ensure high-quality data for dashboards, enabling data-driven decision-making by leadership",
+                "Defined and tracked KPIs, conducted cohort and funnel analysis, and supported A/B testing initiatives to align analytics outcomes with business and product objectives",
+                "Designed interactive Tableau dashboards and Excel reports showing data quality trends and operational metrics, improving communication and reporting efficiency by 25%"
+            ]
+        },
+        {
+            title: "Business Intelligence Intern",
+            company: "INTERWORKS",
+            date: "MAY 2024 – AUG 2024",
+            achievements: [
+                "Enhanced NHS England's population analytics dashboards in Tableau Cloud, improving performance and usability for over 5 billion health records used in strategic planning",
+                "Designed parameterized dashboards to visualize cohort behavior, retention, and demographic trends, enabling stakeholders to make faster, evidence-based decisions",
+                "Developed and executed data validation workflows across multiple sources and authored documentation that increased adoption of analytics solutions by non-technical teams",
+                "Collaborated using Git/GitHub, Jira, and agile practices, contributing to sprint planning and cross-functional feature development"
+            ]
+        },
+        {
+            title: "Data Analyst",
+            company: "COGNIZANT TECHNOLOGY SOLUTIONS",
+            date: "OCT 2021 – JUN 2022",
+            achievements: [
+                "Analyzed 1TB+ weekly Salesforce IoT device data using complex SQL in AWS Redshift, driving 15% increase in device monetization",
+                "Improved data quality by 25% using Python and AWS Glue, reducing dashboard query latency by 40%",
+                "Delivered interactive Tableau dashboards capturing $200K in new revenue opportunities",
+                "Monitored data accuracy in CloudWatch, preventing $100K in potential penalties"
+            ]
+        }
+    ];
 
     return (
         <section id="experience">
@@ -1131,35 +1471,38 @@ const Projects = () => {
     const titleRef = useRef(null);
     const isTitleVisible = useIntersectionObserver(titleRef);
 
-  const projects = [
-    {
-      title: "Apilens - LLM API Analytics & Cost Monitoring Platform",
-      tech: "PYTHON • AWS CLOUDFRONT • POSTGRESQL • DOCKER",
-      achievements: [
-        "Built a global proxy backend using Python and AWS CloudFront to intercept and route LLM API calls across 300+ edge locations, ensuring low-latency request handling and seamless forwarding to the correct model provider",
-        "Designed a real-time data ingestion and warehousing layer that captured rich metadata for every request (tokens, model, cost, request/response) and stored it in PostgreSQL, enabling near real-time querying and analytics",
-        "Developed a cost analytics engine and interactive dashboards that visualized usage and spending patterns in real time, helping companies understand where and how their LLM budgets are spent and make data-driven optimization decisions"
-      ]
-    },
-    {
-      title: "Sales & Customer Performance Dashboard",
-      tech: "TABLEAU • SQL SERVER • DBT • COHORT ANALYSIS",
-      achievements: [
-        "Created interactive Tableau dashboards with retention KPIs, dynamic filters, and drill-downs, improving reporting speed and performance analysis by 40%",
-        "Built a star-schema dimensional model in SQL Server using dbt, enabling efficient queries, data validation, and self-service analytics",
-        "Performed cohort and funnel analysis to uncover user behavior patterns, directly influencing sales strategy and product feature prioritization"
-      ]
-    },
-    {
-      title: "Enterprise Data Warehouse - Medallion Architecture",
-      tech: "SQL SERVER • DOCKER • AZURE DATA STUDIO • ETL PIPELINES",
-      achievements: [
-        "Set up a modern data warehouse using the bronze, silver, and gold layers in SQL Server, deploying the environment via Docker and managing development through Azure Data Studio",
-        "Built stored procedure-based ETL pipelines to ingest and transform over 10,000 records from CRM and ERP systems, significantly improving data reliability, refresh speed, and traceability",
-        "Restructured data into a clean star schema with fact and dimension tables, improving query performance and reducing dashboard load times by nearly 40%"
-      ]
-    }
-  ];
+    const projects = [
+        {
+            title: "Apilens - LLM Analytics Platform",
+            tech: "PYTHON • AWS • POSTGRESQL • DOCKER",
+            icon: "⚡",
+            achievements: [
+                "Architected and deployed a global proxy network spanning 300+ edge locations to intercept and monitor LLM API calls with sub-100ms latency, ensuring seamless routing to appropriate model providers",
+                "Engineered a real-time data ingestion pipeline processing 10M+ API requests daily, capturing comprehensive metadata including tokens, costs, models, and response times for instant analytics and reporting",
+                "Developed an intelligent cost optimization engine that analyzes usage patterns and provides actionable insights, helping companies reduce their LLM spending by 30-50% through budget alerts and usage recommendations"
+            ]
+        },
+        {
+            title: "Customer Analytics Dashboard",
+            tech: "TABLEAU • SQL • DBT • COHORT ANALYSIS",
+            icon: "📊",
+            achievements: [
+                "Designed and built comprehensive interactive dashboards featuring customer lifetime value analysis, retention metrics, and behavioral segmentation, enabling data-driven decision making that improved customer retention strategies by 40%",
+                "Implemented advanced automated cohort analysis and churn prediction models that identify at-risk customers 60 days before departure, allowing proactive intervention and reducing customer churn by 25%",
+                "Created a self-service analytics platform empowering sales and marketing teams to generate insights independently, reducing manual report requests by 70% and accelerating decision-making processes"
+            ]
+        },
+        {
+            title: "Enterprise Data Warehouse",
+            tech: "SQL SERVER • DOCKER • ETL PIPELINES",
+            icon: "🏗️",
+            achievements: [
+                "Designed and implemented a modern data warehouse architecture using the Medallion (Bronze, Silver, Gold) pattern, ensuring data quality and enabling scalable analytics across multiple business units",
+                "Built robust ETL pipelines with intelligent error handling and data validation, processing over 10,000 records from CRM and ERP systems while improving data processing efficiency by 40% and reducing manual intervention",
+                "Transformed legacy data systems into a clean, queryable star schema with optimized fact and dimension tables, resulting in 40% faster query performance and enabling real-time business intelligence capabilities"
+            ]
+        }
+    ];
 
     return (
         <section id="projects">
@@ -1186,6 +1529,7 @@ const ProjectCard = ({ project, delay }) => {
             style={{ transitionDelay: `${delay}s` }}
         >
             <div className="project-header">
+                <div className="project-icon">{project.icon}</div>
                 <h3>{project.title}</h3>
                 <p className="project-tech">{project.tech}</p>
             </div>
@@ -1326,6 +1670,7 @@ export default function App() {
 
     return (
         <div>
+            <ThemeToggle />
             <Navigation />
             <Hero />
             <About />
