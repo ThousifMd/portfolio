@@ -914,8 +914,8 @@ const About = () => {
         <section id="about">
             <div className="container">
                 <h2 ref={titleRef} className={`section-title ${isTitleVisible ? 'visible' : ''}`}>ABOUT</h2>
-                <div className="about-content">
-                    <p>Data Analyst with nearly 3 years of experience in advanced SQL (complex joins, subqueries, window functions), Python (pandas, NumPy), ETL/ELT pipelines, and relational/dimensional data modeling. Expertise in Tableau/Power BI dashboards, translating business problems into KPIs, data profiling and validation, and cloud-based analytics (AWS Redshift, Snowflake).</p>
+        <div className="about-content">
+          <p>Data professional with 3+ years of experience in analytics, data quality, and integration across enterprise systems. Skilled in SQL, Python, Tableau, and Snowflake, with a strong track record of building scalable data workflows, defining KPIs, conducting A/B tests, and delivering insights that drive product decisions. Experienced in dbt, AWS, cohort analysis, and behavioral analytics tools, and passionate about turning complex data into actionable strategies.</p>
 
                     <div className="contact-info">
                         <div className="contact-item">
@@ -966,53 +966,53 @@ const Skills = () => {
     const titleRef = useRef(null);
     const isTitleVisible = useIntersectionObserver(titleRef);
 
-    const skillsData = [
-        {
-            title: "SQL & Data Modeling",
-            items: [
-                "Advanced SQL (Joins, Subqueries, Window Functions, CTEs)",
-                "dbt (Data Build Tool) Models",
-                "Data Warehouse Design (Star/Snowflake Schema)",
-                "Dimensional Modeling"
-            ]
-        },
-        {
-            title: "Programming & Analysis",
-            items: [
-                "Python (pandas, NumPy)",
-                "Data Profiling & Statistical Analysis",
-                "Data Validation & Cleaning",
-                "ETL/ELT Pipeline Development"
-            ]
-        },
-        {
-            title: "Data Visualization",
-            items: [
-                "Tableau (Dashboard Development)",
-                "Power BI (DAX, Custom Visuals)",
-                "Data Storytelling",
-                "Best Practices Implementation"
-            ]
-        },
-        {
-            title: "Cloud & Tools",
-            items: [
-                "AWS (S3, Glue, Redshift)",
-                "Snowflake",
-                "SQL Server",
-                "Git/GitHub, Jira"
-            ]
-        },
-        {
-            title: "Business Skills",
-            items: [
-                "Stakeholder Communication",
-                "Cross-Functional Collaboration",
-                "KPI Development",
-                "Agile Methodologies"
-            ]
-        }
-    ];
+  const skillsData = [
+    {
+      title: "Data Analytics & Experimentation",
+      items: [
+        "Advanced SQL (CTEs, Window Functions)",
+        "KPI Definition and Tracking",
+        "Funnel and Cohort Analysis",
+        "A/B Testing, Statistical Modelling (Python, R)"
+      ]
+    },
+    {
+      title: "Data Engineering & Warehousing",
+      items: [
+        "Snowflake, SQL Server, dbt",
+        "ELT Pipelines, Dimensional Modelling",
+        "Data Validation and Profiling",
+        "AWS (S3, Lambda, Redshift, CloudWatch)"
+      ]
+    },
+    {
+      title: "Visualization & Tools",
+      items: [
+        "Tableau, Amplitude/Mixpanel",
+        "Excel (Advanced Formulas)",
+        "Data Storytelling",
+        "Interactive Dashboard Development"
+      ]
+    },
+    {
+      title: "Programming & Cloud",
+      items: [
+        "Python (pandas, NumPy, API Integration)",
+        "AWS CloudFront, PostgreSQL",
+        "Git/GitHub, Jira, CI/CD",
+        "Docker, Azure Data Studio"
+      ]
+    },
+    {
+      title: "Collaboration & Methodologies",
+      items: [
+        "Cross-Functional Teamwork",
+        "Stakeholder Communication",
+        "Agile/Scrum Practices",
+        "Sprint Planning & Feature Development"
+      ]
+    }
+  ];
 
     return (
         <section id="skills">
@@ -1053,41 +1053,41 @@ const Experience = () => {
     const titleRef = useRef(null);
     const isTitleVisible = useIntersectionObserver(titleRef);
 
-    const experiences = [
-        {
-            title: "Data Analyst",
-            company: "OKLAHOMA STATE UNIVERSITY IT",
-            date: "AUG 2024 – MAY 2025",
-            achievements: [
-                "Analyzed 10K+ HR and academic contract records using advanced SQL to identify compliance risks and workforce trends, enabling leadership to avoid $30K/year in potential fines",
-                "Created data models in SQL Server, improving Tableau dashboard refresh rates by 40% and reducing decision-making time by 25%",
-                "Collaborated with 5+ departments using Python data profiling, improving data accuracy to 99% and cutting workforce planning errors by 35%",
-                "Designed Tableau dashboards tracking KPIs, reducing projected turnover costs by $50K/year"
-            ]
-        },
-        {
-            title: "Business Intelligence Intern",
-            company: "INTERWORKS",
-            date: "MAY 2024 – AUG 2024",
-            achievements: [
-                "Collaborated with BI consultants to enhance NHS England's population analytics dashboards in Tableau Cloud, improving accessibility and performance for over 5 billion health records",
-                "Designed interactive, parameter-driven dashboards that allowed end users to analyze regional and demographic trends efficiently",
-                "Authored end-user documentation and data reference guides to improve usability and adoption of analytics tools among non-technical audiences",
-                "Supported data validation and quality assurance for published dashboards, ensuring consistency across data sources and visual layers"
-            ]
-        },
-        {
-            title: "Data Analyst",
-            company: "COGNIZANT TECHNOLOGY SOLUTIONS",
-            date: "OCT 2021 – JUN 2022",
-            achievements: [
-                "Analyzed 1TB+ weekly Salesforce IoT device data using complex SQL in AWS Redshift, driving 15% increase in device monetization",
-                "Improved data quality by 25% using Python and AWS Glue, reducing dashboard query latency by 40%",
-                "Delivered interactive Tableau dashboards capturing $200K in new revenue opportunities",
-                "Monitored data accuracy in CloudWatch, preventing $100K in potential penalties"
-            ]
-        }
-    ];
+  const experiences = [
+    {
+      title: "Data Analyst",
+      company: "OKLAHOMA STATE UNIVERSITY - IT",
+      date: "AUG 2024 – MAY 2025",
+      achievements: [
+        "Automated integration of HR, finance, and academic data using Python, SQL Server, and AWS S3, reducing manual updates by 40% and improving data reliability across reporting systems",
+        "Built validation pipelines with CTEs and window functions to detect anomalies and ensure high-quality data for dashboards, enabling data-driven decision-making by leadership",
+        "Defined and tracked KPIs, conducted cohort and funnel analysis, and supported A/B testing initiatives to align analytics outcomes with business and product objectives",
+        "Designed interactive Tableau dashboards and Excel reports showing data quality trends and operational metrics, improving communication and reporting efficiency by 25%"
+      ]
+    },
+    {
+      title: "Business Intelligence Intern",
+      company: "INTERWORKS",
+      date: "MAY 2024 – AUG 2024",
+      achievements: [
+        "Enhanced NHS England's population analytics dashboards in Tableau Cloud, improving performance and usability for over 5 billion health records used in strategic planning",
+        "Designed parameterized dashboards to visualize cohort behavior, retention, and demographic trends, enabling stakeholders to make faster, evidence-based decisions",
+        "Developed and executed data validation workflows across multiple sources and authored documentation that increased adoption of analytics solutions by non-technical teams",
+        "Collaborated using Git/GitHub, Jira, and agile practices, contributing to sprint planning and cross-functional feature development"
+      ]
+    },
+    {
+      title: "Data Analyst",
+      company: "COGNIZANT TECHNOLOGY SOLUTIONS",
+      date: "OCT 2021 – JUN 2022",
+      achievements: [
+        "Analyzed 1TB+ weekly Salesforce IoT device data using complex SQL in AWS Redshift, driving 15% increase in device monetization",
+        "Improved data quality by 25% using Python and AWS Glue, reducing dashboard query latency by 40%",
+        "Delivered interactive Tableau dashboards capturing $200K in new revenue opportunities",
+        "Monitored data accuracy in CloudWatch, preventing $100K in potential penalties"
+      ]
+    }
+  ];
 
     return (
         <section id="experience">
@@ -1131,26 +1131,35 @@ const Projects = () => {
     const titleRef = useRef(null);
     const isTitleVisible = useIntersectionObserver(titleRef);
 
-    const projects = [
-        {
-            title: "Sales & Customer Performance Dashboard",
-            tech: "POWER BI • TABLEAU • SQL SERVER",
-            achievements: [
-                "Designed interactive Tableau dashboards with sales trends and customer segmentation",
-                "Built dimensional data model with star schema, improving dashboard performance by 40%",
-                "Created calculated fields enabling users to explore KPIs like year-over-year growth"
-            ]
-        },
-        {
-            title: "Enterprise Data Warehouse",
-            tech: "DBT • SQL • PYTHON • MEDALLION ARCHITECTURE",
-            achievements: [
-                "Built data warehouse following Medallion Architecture with dbt models",
-                "Designed dimensional data models with star schema using advanced SQL",
-                "Created data architecture diagrams and documented ETL flow using Git"
-            ]
-        }
-    ];
+  const projects = [
+    {
+      title: "Apilens - LLM API Analytics & Cost Monitoring Platform",
+      tech: "PYTHON • AWS CLOUDFRONT • POSTGRESQL • DOCKER",
+      achievements: [
+        "Built a global proxy backend using Python and AWS CloudFront to intercept and route LLM API calls across 300+ edge locations, ensuring low-latency request handling and seamless forwarding to the correct model provider",
+        "Designed a real-time data ingestion and warehousing layer that captured rich metadata for every request (tokens, model, cost, request/response) and stored it in PostgreSQL, enabling near real-time querying and analytics",
+        "Developed a cost analytics engine and interactive dashboards that visualized usage and spending patterns in real time, helping companies understand where and how their LLM budgets are spent and make data-driven optimization decisions"
+      ]
+    },
+    {
+      title: "Sales & Customer Performance Dashboard",
+      tech: "TABLEAU • SQL SERVER • DBT • COHORT ANALYSIS",
+      achievements: [
+        "Created interactive Tableau dashboards with retention KPIs, dynamic filters, and drill-downs, improving reporting speed and performance analysis by 40%",
+        "Built a star-schema dimensional model in SQL Server using dbt, enabling efficient queries, data validation, and self-service analytics",
+        "Performed cohort and funnel analysis to uncover user behavior patterns, directly influencing sales strategy and product feature prioritization"
+      ]
+    },
+    {
+      title: "Enterprise Data Warehouse - Medallion Architecture",
+      tech: "SQL SERVER • DOCKER • AZURE DATA STUDIO • ETL PIPELINES",
+      achievements: [
+        "Set up a modern data warehouse using the bronze, silver, and gold layers in SQL Server, deploying the environment via Docker and managing development through Azure Data Studio",
+        "Built stored procedure-based ETL pipelines to ingest and transform over 10,000 records from CRM and ERP systems, significantly improving data reliability, refresh speed, and traceability",
+        "Restructured data into a clean star schema with fact and dimension tables, improving query performance and reducing dashboard load times by nearly 40%"
+      ]
+    }
+  ];
 
     return (
         <section id="projects">
