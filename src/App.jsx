@@ -32,21 +32,21 @@ const styles = `
   }
 
   [data-theme="light"] .nav-link {
-    color: #000000 !important;
+    color: #ffffff !important;
   }
 
   [data-theme="light"] .nav-link:hover {
-    color: #000000 !important;
-    background: rgba(0, 0, 0, 0.1);
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.15);
   }
 
   [data-theme="light"] .logo {
-    color: #000000 !important;
+    color: #ffffff !important;
   }
 
   [data-theme="light"] .logo span {
-    color: #000000 !important;
-    opacity: 0.7;
+    color: #888888 !important;
+    opacity: 1;
   }
 
   [data-theme="light"] .hero h1 {
@@ -214,6 +214,8 @@ const styles = `
     transition: all 0.3s ease;
   }
 
+
+
   /* FORCE WHITE TEXT - SIMPLE */
   .nav * {
     color: white !important;
@@ -320,6 +322,7 @@ const styles = `
   .nav-link:hover {
     background: rgba(255, 255, 255, 0.15);
     transform: translateY(-1px);
+    color: white !important;
   }
 
   .hamburger {
@@ -945,6 +948,8 @@ const styles = `
   .project-body ul {
     margin-left: 1.2rem;
     color: var(--lightgrey);
+    list-style: none;
+    padding-left: 0;
   }
 
   .project-body li {
@@ -1459,559 +1464,560 @@ const styles = `
 
 // Theme Toggle Component
 const ThemeToggle = () => {
-    const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(true);
 
-    useEffect(() => {
-        // Check for saved theme preference or default to dark
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            setIsDark(savedTheme === 'dark');
-            document.documentElement.setAttribute('data-theme', savedTheme);
-        }
-    }, []);
+  useEffect(() => {
+    // Check for saved theme preference or default to dark
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setIsDark(savedTheme === 'dark');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    }
+  }, []);
 
-    const toggleTheme = () => {
-        const newTheme = isDark ? 'light' : 'dark';
-        setIsDark(!isDark);
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-    };
+  const toggleTheme = () => {
+    const newTheme = isDark ? 'light' : 'dark';
+    setIsDark(!isDark);
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
 
-    return (
-        <div
-            className={`theme-toggle ${isDark ? 'dark' : 'light'}`}
-            onClick={toggleTheme}
-            title={`Switch to ${isDark ? 'light' : 'dark'} theme`}
-        >
-            <span className="theme-icon">
-                {isDark ? '☀️' : '🌙'}
-            </span>
-        </div>
-    );
+  return (
+    <div
+      className={`theme-toggle ${isDark ? 'dark' : 'light'}`}
+      onClick={toggleTheme}
+      title={`Switch to ${isDark ? 'light' : 'dark'} theme`}
+    >
+      <span className="theme-icon">
+        {isDark ? '☀️' : '🌙'}
+      </span>
+    </div>
+  );
 };
 
 // Navigation Component
 const Navigation = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
-    const [isDark, setIsDark] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [isDark, setIsDark] = useState(true);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-    useEffect(() => {
-        // Check for saved theme preference or default to dark
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            setIsDark(savedTheme === 'dark');
-            document.documentElement.setAttribute('data-theme', savedTheme);
-        }
-    }, []);
+  useEffect(() => {
+    // Check for saved theme preference or default to dark
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setIsDark(savedTheme === 'dark');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    }
+  }, []);
 
-    const toggleTheme = () => {
-        const newTheme = isDark ? 'light' : 'dark';
-        setIsDark(!isDark);
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
+  const toggleTheme = () => {
+    const newTheme = isDark ? 'light' : 'dark';
+    setIsDark(!isDark);
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isMenuOpen && !event.target.closest('.nav-container')) {
+        setIsMenuOpen(false);
+      }
     };
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (isMenuOpen && !event.target.closest('.nav-container')) {
-                setIsMenuOpen(false);
-            }
-        };
+    if (isMenuOpen) {
+      document.addEventListener('click', handleClickOutside);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
 
-        if (isMenuOpen) {
-            document.addEventListener('click', handleClickOutside);
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
-        }
-
-        return () => {
-            document.removeEventListener('click', handleClickOutside);
-            document.body.style.overflow = 'unset';
-        };
-    }, [isMenuOpen]);
-
-    const scrollToSection = (id) => {
-        const element = document.getElementById(id);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            setIsMenuOpen(false);
-        }
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+      document.body.style.overflow = 'unset';
     };
+  }, [isMenuOpen]);
 
-    return (
-        <nav className="nav" style={{
-            background: scrolled ? 'rgba(0, 0, 0, 0.98)' : 'rgba(0, 0, 0, 0.95)',
-            boxShadow: scrolled ? '0 4px 20px rgba(0, 0, 0, 0.5)' : 'none'
-        }}>
-            <div className="nav-container">
-                <div className="logo" style={{ color: 'white !important' }}>THOUSIF<span style={{ color: 'white !important' }}>.DEV</span></div>
-                <div className={`hamburger ${isMenuOpen ? 'active' : ''}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                    <span></span>
-                    <span></span>
-                    <span></span>
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setIsMenuOpen(false);
+    }
+  };
+
+  return (
+    <nav className="nav" style={{
+      background: scrolled ? 'rgba(0, 0, 0, 0.98)' : 'rgba(0, 0, 0, 0.95)',
+      boxShadow: scrolled ? '0 4px 20px rgba(0, 0, 0, 0.5)' : 'none'
+    }}>
+      <div className="nav-container">
+        <div className="logo" style={{ color: 'white !important' }}>THOUSIF<span style={{ color: 'white !important' }}>.DEV</span></div>
+        <div className={`hamburger ${isMenuOpen ? 'active' : ''}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
+          <li><a className="nav-link" style={{ color: 'white !important' }} onClick={() => scrollToSection('about')}>ABOUT</a></li>
+          <li><a className="nav-link" style={{ color: 'white !important' }} onClick={() => scrollToSection('skills')}>SKILLS</a></li>
+          <li><a className="nav-link" style={{ color: 'white !important' }} onClick={() => scrollToSection('experience')}>EXPERIENCE</a></li>
+          <li><a className="nav-link" style={{ color: 'white !important' }} onClick={() => scrollToSection('projects')}>PROJECTS</a></li>
+          <li><a className="nav-link" style={{ color: 'white !important' }} onClick={() => scrollToSection('education')}>EDUCATION</a></li>
+          <li className="theme-toggle-menu-item">
+            <div className="theme-toggle-container">
+              <span className="theme-label">{isDark ? 'Dark' : 'Light'}</span>
+              <div className="sliding-toggle" onClick={toggleTheme}>
+                <div className={`toggle-slider ${isDark ? 'dark' : 'light'}`}>
+                  <span className="toggle-icon">{isDark ? '🌙' : '☀️'}</span>
                 </div>
-                <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
-                    <li><a className="nav-link" style={{ color: 'white !important' }} onClick={() => scrollToSection('about')}>ABOUT</a></li>
-                    <li><a className="nav-link" style={{ color: 'white !important' }} onClick={() => scrollToSection('skills')}>SKILLS</a></li>
-                    <li><a className="nav-link" style={{ color: 'white !important' }} onClick={() => scrollToSection('experience')}>EXPERIENCE</a></li>
-                    <li><a className="nav-link" style={{ color: 'white !important' }} onClick={() => scrollToSection('projects')}>PROJECTS</a></li>
-                    <li><a className="nav-link" style={{ color: 'white !important' }} onClick={() => scrollToSection('education')}>EDUCATION</a></li>
-                    <li className="theme-toggle-menu-item">
-                        <div className="theme-toggle-container">
-                            <span className="theme-label">{isDark ? 'Dark' : 'Light'}</span>
-                            <div className="sliding-toggle" onClick={toggleTheme}>
-                                <div className={`toggle-slider ${isDark ? 'dark' : 'light'}`}>
-                                    <span className="toggle-icon">{isDark ? '🌙' : '☀️'}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+              </div>
             </div>
-        </nav>
-    );
+          </li>
+        </ul>
+      </div>
+    </nav>
+  );
 };
+
 
 // Hero Component
 const Hero = () => {
-    const particles = Array.from({ length: 10 }, (_, i) => ({
-        id: i,
-        left: `${(i + 1) * 10}%`,
-        animationDelay: `${i * 2}s`,
-        animationDuration: `${12 + i * 2}s`
-    }));
+  const particles = Array.from({ length: 10 }, (_, i) => ({
+    id: i,
+    left: `${(i + 1) * 10}%`,
+    animationDelay: `${i * 2}s`,
+    animationDuration: `${12 + i * 2}s`
+  }));
 
-    return (
-        <section className="hero">
-            {particles.map(particle => (
-                <div
-                    key={particle.id}
-                    className="particle"
-                    style={{
-                        left: particle.left,
-                        animationDelay: particle.animationDelay,
-                        animationDuration: particle.animationDuration
-                    }}
-                />
-            ))}
-            <div className="hero-content">
-                <h1>MOHAMMAD THOUSIF</h1>
-                <p className="subtitle">Turning Data into Actionable Insights</p>
-                <div className="cta">
-                    <a href="#about" className="btn btn-primary">EXPLORE WORK</a>
-                    <a href="mailto:thousif.udayagiri@okstate.edu" className="btn btn-outline">GET IN TOUCH</a>
-                </div>
-            </div>
-        </section>
-    );
+  return (
+    <section className="hero">
+      {particles.map(particle => (
+        <div
+          key={particle.id}
+          className="particle"
+          style={{
+            left: particle.left,
+            animationDelay: particle.animationDelay,
+            animationDuration: particle.animationDuration
+          }}
+        />
+      ))}
+      <div className="hero-content">
+        <h1>MOHAMMAD THOUSIF</h1>
+        <p className="subtitle">Turning Data into Actionable Insights</p>
+        <div className="cta">
+          <a href="#about" className="btn btn-primary">EXPLORE WORK</a>
+          <a href="mailto:thousif.udayagiri@okstate.edu" className="btn btn-outline">GET IN TOUCH</a>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 // About Component
 const About = () => {
-    const titleRef = useRef(null);
-    const [isTitleVisible, setIsTitleVisible] = useState(false);
+  const titleRef = useRef(null);
+  const [isTitleVisible, setIsTitleVisible] = useState(false);
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setIsTitleVisible(true);
-                }
-            },
-            { threshold: 0.1 }
-        );
-
-        if (titleRef.current) {
-            observer.observe(titleRef.current);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsTitleVisible(true);
         }
-
-        return () => {
-            if (titleRef.current) {
-                observer.unobserve(titleRef.current);
-            }
-        };
-    }, []);
-
-    return (
-        <section id="about">
-            <div className="container">
-                <h2 ref={titleRef} className={`section-title ${isTitleVisible ? 'visible' : ''}`}>ABOUT</h2>
-                <div className="about-content">
-                    <p>Data professional with 3+ years of experience in analytics, data quality, and integration across enterprise systems. Skilled in SQL, Python, Tableau, and Snowflake, with a strong track record of building scalable data workflows, defining KPIs, conducting A/B tests, and delivering insights that drive product decisions. Experienced in dbt, AWS, cohort analysis, and behavioral analytics tools, and passionate about turning complex data into actionable strategies.</p>
-
-                    <div className="contact-info">
-                        <div className="contact-item">
-                            <span>📧</span>
-                            <span>thousif.udayagiri@okstate.edu</span>
-                        </div>
-                        <div className="contact-item">
-                            <span>📱</span>
-                            <span>(405) 269-2515</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+      },
+      { threshold: 0.1 }
     );
+
+    if (titleRef.current) {
+      observer.observe(titleRef.current);
+    }
+
+    return () => {
+      if (titleRef.current) {
+        observer.unobserve(titleRef.current);
+      }
+    };
+  }, []);
+
+  return (
+    <section id="about">
+      <div className="container">
+        <h2 ref={titleRef} className={`section-title ${isTitleVisible ? 'visible' : ''}`}>ABOUT</h2>
+        <div className="about-content">
+          <p>Data professional with 3+ years of experience in analytics, data quality, and integration across enterprise systems. Skilled in SQL, Python, Tableau, and Snowflake, with a strong track record of building scalable data workflows, defining KPIs, conducting A/B tests, and delivering insights that drive product decisions. Experienced in dbt, AWS, cohort analysis, and behavioral analytics tools, and passionate about turning complex data into actionable strategies.</p>
+
+          <div className="contact-info">
+            <div className="contact-item">
+              <span>📧</span>
+              <span>thousif.udayagiri@okstate.edu</span>
+            </div>
+            <div className="contact-item">
+              <span>📱</span>
+              <span>(405) 269-2515</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 // Intersection Observer Hook
 const useIntersectionObserver = (ref, options = {}) => {
-    const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setIsVisible(true);
-                }
-            },
-            { threshold: 0.15, ...options }
-        );
-
-        if (ref.current) {
-            observer.observe(ref.current);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
         }
+      },
+      { threshold: 0.15, ...options }
+    );
 
-        return () => {
-            if (ref.current) {
-                observer.unobserve(ref.current);
-            }
-        };
-    }, []);
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
 
-    return isVisible;
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, []);
+
+  return isVisible;
 };
 
 // Skills Component
 const Skills = () => {
-    const titleRef = useRef(null);
-    const isTitleVisible = useIntersectionObserver(titleRef);
+  const titleRef = useRef(null);
+  const isTitleVisible = useIntersectionObserver(titleRef);
 
-    const skillsData = [
-        {
-            title: "Data Analytics & Experimentation",
-            items: [
-                "Advanced SQL (CTEs, Window Functions)",
-                "KPI Definition and Tracking",
-                "Funnel and Cohort Analysis",
-                "A/B Testing, Statistical Modelling (Python, R)"
-            ]
-        },
-        {
-            title: "Data Engineering & Warehousing",
-            items: [
-                "Snowflake, SQL Server, dbt",
-                "ELT Pipelines, Dimensional Modelling",
-                "Data Validation and Profiling",
-                "AWS (S3, Lambda, Redshift, CloudWatch)"
-            ]
-        },
-        {
-            title: "Visualization & Tools",
-            items: [
-                "Tableau, Amplitude/Mixpanel",
-                "Excel (Advanced Formulas)",
-                "Data Storytelling",
-                "Interactive Dashboard Development"
-            ]
-        },
-        {
-            title: "Programming & Cloud",
-            items: [
-                "Python (pandas, NumPy, API Integration)",
-                "AWS CloudFront, PostgreSQL",
-                "Git/GitHub, Jira, CI/CD",
-                "Docker, Azure Data Studio"
-            ]
-        },
-        {
-            title: "Collaboration & Methodologies",
-            items: [
-                "Cross-Functional Teamwork",
-                "Stakeholder Communication",
-                "Agile/Scrum Practices",
-                "Sprint Planning & Feature Development"
-            ]
-        }
-    ];
+  const skillsData = [
+    {
+      title: "Data Analytics & Experimentation",
+      items: [
+        "Advanced SQL (CTEs, Window Functions)",
+        "KPI Definition and Tracking",
+        "Funnel and Cohort Analysis",
+        "A/B Testing, Statistical Modelling (Python, R)"
+      ]
+    },
+    {
+      title: "Data Engineering & Warehousing",
+      items: [
+        "Snowflake, SQL Server, dbt",
+        "ELT Pipelines, Dimensional Modelling",
+        "Data Validation and Profiling",
+        "AWS (S3, Lambda, Redshift, CloudWatch)"
+      ]
+    },
+    {
+      title: "Visualization & Tools",
+      items: [
+        "Tableau, Amplitude/Mixpanel",
+        "Excel (Advanced Formulas)",
+        "Data Storytelling",
+        "Interactive Dashboard Development"
+      ]
+    },
+    {
+      title: "Programming & Cloud",
+      items: [
+        "Python (pandas, NumPy, API Integration)",
+        "AWS CloudFront, PostgreSQL",
+        "Git/GitHub, Jira, CI/CD",
+        "Docker, Azure Data Studio"
+      ]
+    },
+    {
+      title: "Collaboration & Methodologies",
+      items: [
+        "Cross-Functional Teamwork",
+        "Stakeholder Communication",
+        "Agile/Scrum Practices",
+        "Sprint Planning & Feature Development"
+      ]
+    }
+  ];
 
-    return (
-        <section id="skills">
-            <div className="container">
-                <h2 ref={titleRef} className={`section-title ${isTitleVisible ? 'visible' : ''}`}>SKILLS</h2>
-                <div className="skills-grid">
-                    {skillsData.map((skill, index) => (
-                        <SkillCard key={index} skill={skill} delay={index * 0.1} />
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
+  return (
+    <section id="skills">
+      <div className="container">
+        <h2 ref={titleRef} className={`section-title ${isTitleVisible ? 'visible' : ''}`}>SKILLS</h2>
+        <div className="skills-grid">
+          {skillsData.map((skill, index) => (
+            <SkillCard key={index} skill={skill} delay={index * 0.1} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 };
 
 const SkillCard = ({ skill, delay }) => {
-    const ref = useRef(null);
-    const isVisible = useIntersectionObserver(ref);
+  const ref = useRef(null);
+  const isVisible = useIntersectionObserver(ref);
 
-    return (
-        <div
-            ref={ref}
-            className={`skill-card ${isVisible ? 'visible' : ''}`}
-            style={{ transitionDelay: `${delay}s` }}
-        >
-            <h3>{skill.title}</h3>
-            <ul>
-                {skill.items.map((item, i) => (
-                    <li key={i}>{item}</li>
-                ))}
-            </ul>
-        </div>
-    );
+  return (
+    <div
+      ref={ref}
+      className={`skill-card ${isVisible ? 'visible' : ''}`}
+      style={{ transitionDelay: `${delay}s` }}
+    >
+      <h3>{skill.title}</h3>
+      <ul>
+        {skill.items.map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  );
 };
 
 // Experience Component
 const Experience = () => {
-    const titleRef = useRef(null);
-    const isTitleVisible = useIntersectionObserver(titleRef);
+  const titleRef = useRef(null);
+  const isTitleVisible = useIntersectionObserver(titleRef);
 
-    const experiences = [
-        {
-            title: "Data Analyst",
-            company: "OKLAHOMA STATE UNIVERSITY - IT",
-            date: "AUG 2024 – MAY 2025",
-            achievements: [
-                "Automated integration of HR, finance, and academic data using Python, SQL Server, and AWS S3, reducing manual updates by 40% and improving data reliability across reporting systems",
-                "Built validation pipelines with CTEs and window functions to detect anomalies and ensure high-quality data for dashboards, enabling data-driven decision-making by leadership",
-                "Defined and tracked KPIs, conducted cohort and funnel analysis, and supported A/B testing initiatives to align analytics outcomes with business and product objectives",
-                "Designed interactive Tableau dashboards and Excel reports showing data quality trends and operational metrics, improving communication and reporting efficiency by 25%"
-            ]
-        },
-        {
-            title: "Business Intelligence Intern",
-            company: "INTERWORKS",
-            date: "MAY 2024 – AUG 2024",
-            achievements: [
-                "Enhanced NHS England's population analytics dashboards in Tableau Cloud, improving performance and usability for over 5 billion health records used in strategic planning",
-                "Designed parameterized dashboards to visualize cohort behavior, retention, and demographic trends, enabling stakeholders to make faster, evidence-based decisions",
-                "Developed and executed data validation workflows across multiple sources and authored documentation that increased adoption of analytics solutions by non-technical teams",
-                "Collaborated using Git/GitHub, Jira, and agile practices, contributing to sprint planning and cross-functional feature development"
-            ]
-        },
-        {
-            title: "Data Analyst",
-            company: "COGNIZANT TECHNOLOGY SOLUTIONS",
-            date: "OCT 2021 – JUN 2022",
-            achievements: [
-                "Analyzed 1TB+ weekly Salesforce IoT device data using complex SQL in AWS Redshift, driving 15% increase in device monetization",
-                "Improved data quality by 25% using Python and AWS Glue, reducing dashboard query latency by 40%",
-                "Delivered interactive Tableau dashboards capturing $200K in new revenue opportunities",
-                "Monitored data accuracy in CloudWatch, preventing $100K in potential penalties"
-            ]
-        }
-    ];
+  const experiences = [
+    {
+      title: "Data Analyst",
+      company: "OKLAHOMA STATE UNIVERSITY - IT",
+      date: "AUG 2024 – MAY 2025",
+      achievements: [
+        "Automated integration of HR, finance, and academic data using Python, SQL Server, and AWS S3, reducing manual updates by 40% and improving data reliability across reporting systems",
+        "Built validation pipelines with CTEs and window functions to detect anomalies and ensure high-quality data for dashboards, enabling data-driven decision-making by leadership",
+        "Defined and tracked KPIs, conducted cohort and funnel analysis, and supported A/B testing initiatives to align analytics outcomes with business and product objectives",
+        "Designed interactive Tableau dashboards and Excel reports showing data quality trends and operational metrics, improving communication and reporting efficiency by 25%"
+      ]
+    },
+    {
+      title: "Business Intelligence Intern",
+      company: "INTERWORKS",
+      date: "MAY 2024 – AUG 2024",
+      achievements: [
+        "Enhanced NHS England's population analytics dashboards in Tableau Cloud, improving performance and usability for over 5 billion health records used in strategic planning",
+        "Designed parameterized dashboards to visualize cohort behavior, retention, and demographic trends, enabling stakeholders to make faster, evidence-based decisions",
+        "Developed and executed data validation workflows across multiple sources and authored documentation that increased adoption of analytics solutions by non-technical teams",
+        "Collaborated using Git/GitHub, Jira, and agile practices, contributing to sprint planning and cross-functional feature development"
+      ]
+    },
+    {
+      title: "Data Analyst",
+      company: "COGNIZANT TECHNOLOGY SOLUTIONS",
+      date: "OCT 2021 – JUN 2022",
+      achievements: [
+        "Analyzed 1TB+ weekly Salesforce IoT device data using complex SQL in AWS Redshift, driving 15% increase in device monetization",
+        "Improved data quality by 25% using Python and AWS Glue, reducing dashboard query latency by 40%",
+        "Delivered interactive Tableau dashboards capturing $200K in new revenue opportunities",
+        "Monitored data accuracy in CloudWatch, preventing $100K in potential penalties"
+      ]
+    }
+  ];
 
-    return (
-        <section id="experience">
-            <div className="container">
-                <h2 ref={titleRef} className={`section-title ${isTitleVisible ? 'visible' : ''}`}>EXPERIENCE</h2>
-                <div className="timeline">
-                    {experiences.map((exp, index) => (
-                        <TimelineItem key={index} experience={exp} delay={index * 0.1} />
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
+  return (
+    <section id="experience">
+      <div className="container">
+        <h2 ref={titleRef} className={`section-title ${isTitleVisible ? 'visible' : ''}`}>EXPERIENCE</h2>
+        <div className="timeline">
+          {experiences.map((exp, index) => (
+            <TimelineItem key={index} experience={exp} delay={index * 0.1} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 };
 
 const TimelineItem = ({ experience, delay }) => {
-    const ref = useRef(null);
-    const isVisible = useIntersectionObserver(ref);
+  const ref = useRef(null);
+  const isVisible = useIntersectionObserver(ref);
 
-    return (
-        <div
-            ref={ref}
-            className={`timeline-item ${isVisible ? 'visible' : ''}`}
-            style={{ transitionDelay: `${delay}s` }}
-        >
-            <div className="timeline-content">
-                <h3>{experience.title}</h3>
-                <span className="date">{experience.date} | {experience.company}</span>
-                <ul>
-                    {experience.achievements.map((achievement, i) => (
-                        <li key={i}>{achievement}</li>
-                    ))}
-                </ul>
-            </div>
-        </div>
-    );
+  return (
+    <div
+      ref={ref}
+      className={`timeline-item ${isVisible ? 'visible' : ''}`}
+      style={{ transitionDelay: `${delay}s` }}
+    >
+      <div className="timeline-content">
+        <h3>{experience.title}</h3>
+        <span className="date">{experience.date} | {experience.company}</span>
+        <ul>
+          {experience.achievements.map((achievement, i) => (
+            <li key={i}>{achievement}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
 };
 
 // Projects Component
 const Projects = () => {
-    const titleRef = useRef(null);
-    const isTitleVisible = useIntersectionObserver(titleRef);
+  const titleRef = useRef(null);
+  const isTitleVisible = useIntersectionObserver(titleRef);
 
-    const projects = [
-        {
-            title: "Apilens - LLM Analytics Platform",
-            tech: "PYTHON • AWS • POSTGRESQL • DOCKER",
-            icon: "⚡",
-            achievements: [
-                "Built global proxy network with 300+ edge locations for LLM API monitoring with sub-100ms latency",
-                "Engineered real-time data pipeline processing 10M+ daily requests for comprehensive analytics and reporting",
-                "Developed cost optimization engine reducing LLM spending by 30-50% through intelligent usage analysis"
-            ]
-        },
-        {
-            title: "Customer Analytics Dashboard",
-            tech: "TABLEAU • SQL • DBT • COHORT ANALYSIS",
-            icon: "📊",
-            achievements: [
-                "Built interactive dashboards with customer lifetime value analysis and behavioral segmentation, improving retention by 40%",
-                "Implemented automated cohort analysis and churn prediction models, reducing customer churn by 25%",
-                "Created self-service analytics platform reducing manual report requests by 70% and accelerating decision-making"
-            ]
-        },
-        {
-            title: "Enterprise Data Warehouse",
-            tech: "SQL SERVER • DOCKER • ETL PIPELINES",
-            icon: "🏗️",
-            achievements: [
-                "Implemented modern data warehouse using Medallion (Bronze, Silver, Gold) pattern for scalable analytics across business units",
-                "Built robust ETL pipelines processing 10,000+ records from CRM/ERP systems, improving efficiency by 40%",
-                "Transformed legacy systems into optimized star schema, achieving 40% faster query performance and real-time BI"
-            ]
-        }
-    ];
+  const projects = [
+    {
+      title: "Apilens - LLM Analytics Platform",
+      tech: "PYTHON • AWS • POSTGRESQL • DOCKER",
+      icon: "⚡",
+      achievements: [
+        "Built global proxy network with 300+ edge locations for LLM API monitoring with sub-100ms latency",
+        "Engineered real-time data pipeline processing 10M+ daily requests for comprehensive analytics and reporting",
+        "Developed cost optimization engine reducing LLM spending by 30-50% through intelligent usage analysis"
+      ]
+    },
+    {
+      title: "Customer Analytics Dashboard",
+      tech: "TABLEAU • SQL • DBT • COHORT ANALYSIS",
+      icon: "📊",
+      achievements: [
+        "Built interactive dashboards with customer lifetime value analysis and behavioral segmentation, improving retention by 40%",
+        "Implemented automated cohort analysis and churn prediction models, reducing customer churn by 25%",
+        "Created self-service analytics platform reducing manual report requests by 70% and accelerating decision-making"
+      ]
+    },
+    {
+      title: "Enterprise Data Warehouse",
+      tech: "SQL SERVER • DOCKER • ETL PIPELINES",
+      icon: "🏗️",
+      achievements: [
+        "Implemented modern data warehouse using Medallion (Bronze, Silver, Gold) pattern for scalable analytics across business units",
+        "Built robust ETL pipelines processing 10,000+ records from CRM/ERP systems, improving efficiency by 40%",
+        "Transformed legacy systems into optimized star schema, achieving 40% faster query performance and real-time BI"
+      ]
+    }
+  ];
 
-    return (
-        <section id="projects">
-            <div className="container">
-                <h2 ref={titleRef} className={`section-title ${isTitleVisible ? 'visible' : ''}`}>PROJECTS</h2>
-                <div className="projects-grid">
-                    {projects.map((project, index) => (
-                        <ProjectCard key={index} project={project} delay={index * 0.1} />
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
+  return (
+    <section id="projects">
+      <div className="container">
+        <h2 ref={titleRef} className={`section-title ${isTitleVisible ? 'visible' : ''}`}>PROJECTS</h2>
+        <div className="projects-grid">
+          {projects.map((project, index) => (
+            <ProjectCard key={index} project={project} delay={index * 0.1} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 };
 
 const ProjectCard = ({ project, delay }) => {
-    const ref = useRef(null);
-    const isVisible = useIntersectionObserver(ref);
+  const ref = useRef(null);
+  const isVisible = useIntersectionObserver(ref);
 
-    return (
-        <div
-            ref={ref}
-            className={`project-card ${isVisible ? 'visible' : ''}`}
-            style={{ transitionDelay: `${delay}s` }}
-        >
-            <div className="project-header">
-                <div className="project-icon">{project.icon}</div>
-                <h3>{project.title}</h3>
-                <p className="project-tech">{project.tech}</p>
-            </div>
-            <div className="project-body">
-                <ul>
-                    {project.achievements.map((achievement, i) => (
-                        <li key={i}>{achievement}</li>
-                    ))}
-                </ul>
-            </div>
-        </div>
-    );
+  return (
+    <div
+      ref={ref}
+      className={`project-card ${isVisible ? 'visible' : ''}`}
+      style={{ transitionDelay: `${delay}s` }}
+    >
+      <div className="project-header">
+        <div className="project-icon">{project.icon}</div>
+        <h3>{project.title}</h3>
+        <p className="project-tech">{project.tech}</p>
+      </div>
+      <div className="project-body">
+        <ul>
+          {project.achievements.map((achievement, i) => (
+            <li key={i}>{achievement}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
 };
 
 // Education Component
 const Education = () => {
-    const titleRef = useRef(null);
-    const isTitleVisible = useIntersectionObserver(titleRef);
+  const titleRef = useRef(null);
+  const isTitleVisible = useIntersectionObserver(titleRef);
 
-    return (
-        <section id="education">
-            <div className="container">
-                <h2 ref={titleRef} className={`section-title ${isTitleVisible ? 'visible' : ''}`}>EDUCATION</h2>
-                <div className="education-content">
-                    <EducationCard />
-                    <h2 className="section-title visible" style={{ marginTop: '3rem' }}>CERTIFICATIONS</h2>
-                    <div className="cert-list">
-                        <CertCard title="Tableau Desktop Specialist" issuer="TABLEAU" />
-                        <CertCard title="SQL (Advanced)" issuer="HACKERRANK" />
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
+  return (
+    <section id="education">
+      <div className="container">
+        <h2 ref={titleRef} className={`section-title ${isTitleVisible ? 'visible' : ''}`}>EDUCATION</h2>
+        <div className="education-content">
+          <EducationCard />
+          <h2 className="section-title visible" style={{ marginTop: '3rem' }}>CERTIFICATIONS</h2>
+          <div className="cert-list">
+            <CertCard title="Tableau Desktop Specialist" issuer="TABLEAU" />
+            <CertCard title="SQL (Advanced)" issuer="HACKERRANK" />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 const EducationCard = () => {
-    const ref = useRef(null);
-    const isVisible = useIntersectionObserver(ref);
+  const ref = useRef(null);
+  const isVisible = useIntersectionObserver(ref);
 
-    return (
-        <div ref={ref} className={`edu-card ${isVisible ? 'visible' : ''}`}>
-            <h3>Master of Science in Management Information Systems</h3>
-            <p className="date">AUG 2023 – MAY 2025</p>
-            <p>Oklahoma State University, Stillwater, Oklahoma</p>
-            <p><strong>CGPA: 3.96</strong></p>
-        </div>
-    );
+  return (
+    <div ref={ref} className={`edu-card ${isVisible ? 'visible' : ''}`}>
+      <h3>Master of Science in Management Information Systems</h3>
+      <p className="date">AUG 2023 – MAY 2025</p>
+      <p>Oklahoma State University, Stillwater, Oklahoma</p>
+      <p><strong>CGPA: 3.96</strong></p>
+    </div>
+  );
 };
 
 const CertCard = ({ title, issuer }) => {
-    const ref = useRef(null);
-    const isVisible = useIntersectionObserver(ref);
+  const ref = useRef(null);
+  const isVisible = useIntersectionObserver(ref);
 
-    return (
-        <div ref={ref} className={`cert-card ${isVisible ? 'visible' : ''}`}>
-            <h3>{title}</h3>
-            <p className="issuer">{issuer}</p>
-        </div>
-    );
+  return (
+    <div ref={ref} className={`cert-card ${isVisible ? 'visible' : ''}`}>
+      <h3>{title}</h3>
+      <p className="issuer">{issuer}</p>
+    </div>
+  );
 };
 
 // Footer Component
 const Footer = () => {
-    return (
-        <footer>
-            <div className="container">
-                <p>&copy; 2025 Mohammad Thousif Udayagiri. All Rights Reserved.</p>
-                <p>Crafted with precision. Built with passion.</p>
-                <div className="social-links">
-                    <a href="mailto:thousif.udayagiri@okstate.edu" title="Email">✉</a>
-                    <a href="tel:+14052692515" title="Phone">☎</a>
-                </div>
-            </div>
-        </footer>
-    );
+  return (
+    <footer>
+      <div className="container">
+        <p>&copy; 2025 Mohammad Thousif Udayagiri. All Rights Reserved.</p>
+        <p>Crafted with precision. Built with passion.</p>
+        <div className="social-links">
+          <a href="mailto:thousif.udayagiri@okstate.edu" title="Email">✉</a>
+          <a href="tel:+14052692515" title="Phone">☎</a>
+        </div>
+      </div>
+    </footer>
+  );
 };
 
 // Main App Component
 export default function App() {
-    useEffect(() => {
-        // Inject styles
-        const styleTag = document.createElement('style');
-        styleTag.textContent = styles;
-        document.head.appendChild(styleTag);
+  useEffect(() => {
+    // Inject styles
+    const styleTag = document.createElement('style');
+    styleTag.textContent = styles;
+    document.head.appendChild(styleTag);
 
-        // Custom cursor (desktop only)
-        if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-            const cursorDot = document.createElement('div');
-            cursorDot.style.cssText = `
+    // Custom cursor (desktop only)
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      const cursorDot = document.createElement('div');
+      cursorDot.style.cssText = `
         position: fixed;
         width: 8px;
         height: 8px;
@@ -2022,10 +2028,10 @@ export default function App() {
         opacity: 0.5;
         transition: transform 0.15s ease-out;
       `;
-            document.body.appendChild(cursorDot);
+      document.body.appendChild(cursorDot);
 
-            const cursorOutline = document.createElement('div');
-            cursorOutline.style.cssText = `
+      const cursorOutline = document.createElement('div');
+      cursorOutline.style.cssText = `
         position: fixed;
         width: 30px;
         height: 30px;
@@ -2036,42 +2042,42 @@ export default function App() {
         opacity: 0.3;
         transition: all 0.2s ease-out;
       `;
-            document.body.appendChild(cursorOutline);
+      document.body.appendChild(cursorOutline);
 
-            const handleMouseMove = (e) => {
-                cursorDot.style.left = e.clientX - 4 + 'px';
-                cursorDot.style.top = e.clientY - 4 + 'px';
-                cursorOutline.style.left = e.clientX - 15 + 'px';
-                cursorOutline.style.top = e.clientY - 15 + 'px';
-            };
+      const handleMouseMove = (e) => {
+        cursorDot.style.left = e.clientX - 4 + 'px';
+        cursorDot.style.top = e.clientY - 4 + 'px';
+        cursorOutline.style.left = e.clientX - 15 + 'px';
+        cursorOutline.style.top = e.clientY - 15 + 'px';
+      };
 
-            document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mousemove', handleMouseMove);
 
-            return () => {
-                document.removeEventListener('mousemove', handleMouseMove);
-                document.body.removeChild(cursorDot);
-                document.body.removeChild(cursorOutline);
-                document.head.removeChild(styleTag);
-            };
-        }
+      return () => {
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.body.removeChild(cursorDot);
+        document.body.removeChild(cursorOutline);
+        document.head.removeChild(styleTag);
+      };
+    }
 
-        return () => {
-            document.head.removeChild(styleTag);
-        };
-    }, []);
+    return () => {
+      document.head.removeChild(styleTag);
+    };
+  }, []);
 
-    return (
-        <div>
-            <ThemeToggle />
-            <Navigation />
-            <Hero />
-            <About />
-            <Skills />
-            <Experience />
-            <Projects />
-            <Education />
-            <Footer />
-        </div>
-    );
+  return (
+    <div>
+      <ThemeToggle />
+      <Navigation />
+      <Hero />
+      <About />
+      <Skills />
+      <Experience />
+      <Projects />
+      <Education />
+      <Footer />
+    </div>
+  );
 }
 
