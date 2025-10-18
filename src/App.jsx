@@ -237,6 +237,22 @@ const styles = `
     cursor: auto !important;
   }
 
+  /* Mobile touch optimizations */
+  @media (hover: none) and (pointer: coarse) {
+    .btn, .nav-link, .theme-toggle, .hamburger {
+      min-height: 44px;
+      min-width: 44px;
+    }
+    
+    .project-card:hover {
+      transform: none;
+    }
+    
+    .skill-card:hover {
+      transform: none;
+    }
+  }
+
   .nav {
     position: fixed;
     top: 0;
@@ -816,7 +832,7 @@ const styles = `
   .projects-grid {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 2rem;
     padding: 2rem 0;
   }
 
@@ -867,7 +883,7 @@ const styles = `
   .project-header {
     background: linear-gradient(135deg, var(--black) 0%, #1a1a1a 100%);
     color: white;
-    padding: 2.5rem;
+    padding: 1.8rem;
     border-bottom: 2px solid var(--grey);
     position: relative;
   }
@@ -892,18 +908,18 @@ const styles = `
   .project-header {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1.2rem;
   }
 
   .project-icon {
-    font-size: 3rem;
+    font-size: 2.2rem;
     opacity: 0.9;
     flex-shrink: 0;
   }
 
   .project-header h3 {
-    font-size: 2.2rem;
-    margin-bottom: 1.2rem;
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
     font-weight: 700;
     background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
     -webkit-background-clip: text;
@@ -913,7 +929,7 @@ const styles = `
   }
 
   .project-tech {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: var(--midgrey);
     letter-spacing: 1px;
     font-weight: 500;
@@ -922,30 +938,30 @@ const styles = `
   }
 
   .project-body {
-    padding: 2.5rem;
+    padding: 1.8rem;
     background: rgba(0, 0, 0, 0.2);
   }
 
   .project-body ul {
-    margin-left: 1.5rem;
+    margin-left: 1.2rem;
     color: var(--lightgrey);
   }
 
   .project-body li {
-    margin: 1.5rem 0;
-    font-size: 1.15rem;
-    line-height: 1.9;
+    margin: 1rem 0;
+    font-size: 1rem;
+    line-height: 1.6;
     position: relative;
-    padding-left: 1.5rem;
+    padding-left: 1.2rem;
     font-weight: 400;
   }
 
   .project-body li::before {
     content: '●';
     position: absolute;
-    left: -1.5rem;
+    left: -1.2rem;
     color: var(--white);
-    font-size: 1.2rem;
+    font-size: 1rem;
     opacity: 0.8;
     font-weight: bold;
   }
@@ -1043,16 +1059,44 @@ const styles = `
   }
 
   @media (max-width: 768px) {
-    .hero h1 {
-      font-size: 3rem;
+    /* Mobile Navigation */
+    .nav {
+      padding: 1rem 0;
     }
 
-    .hero .subtitle {
-      font-size: 1.2rem;
+    .nav-container {
+      padding: 0 1rem;
+    }
+
+    .logo {
+      font-size: 1.3rem;
     }
 
     .hamburger {
       display: flex;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: white;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
     }
 
     .nav-menu {
@@ -1060,14 +1104,16 @@ const styles = `
       top: 0;
       right: -100%;
       height: 100vh;
-      width: 70%;
-      max-width: 300px;
-      background: var(--darkgrey);
+      width: 80%;
+      max-width: 320px;
+      background: rgba(0, 0, 0, 0.98);
+      backdrop-filter: blur(20px);
       border-left: 1px solid var(--grey);
       flex-direction: column;
-      padding: 5rem 2rem 2rem;
-      transition: right 0.3s ease;
-      gap: 1rem;
+      padding: 6rem 2rem 2rem;
+      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      gap: 0.5rem;
+      z-index: 1000;
     }
 
     .nav-menu.active {
@@ -1075,39 +1121,266 @@ const styles = `
     }
 
     .nav-link {
-      font-size: 1.2rem;
-      padding: 1rem 0;
+      font-size: 1.3rem;
+      padding: 1.2rem 0;
       display: block;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
     }
 
-    .skills-grid {
-      grid-template-columns: 1fr;
+    .nav-link:hover {
+      background: rgba(255, 255, 255, 0.1);
+      padding-left: 1rem;
     }
 
-    .projects-grid {
-      gap: 2.5rem;
+    /* Mobile Hero Section */
+    .hero {
+      padding: 8rem 0 6rem;
+      min-height: 100vh;
     }
 
-    section {
-      padding: 4rem 0;
-    }
-
-    .section-title {
+    .hero h1 {
       font-size: 2.5rem;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
     }
 
-    .particle {
-      display: none;
+    .hero .subtitle {
+      font-size: 1.1rem;
+      margin-bottom: 3rem;
+      padding: 0 1rem;
     }
 
     .cta {
       flex-direction: column;
       width: 100%;
+      gap: 1rem;
+      padding: 0 1rem;
     }
 
     .btn {
       width: 100%;
       text-align: center;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+    }
+
+    /* Mobile Sections */
+    section {
+      padding: 3rem 0;
+    }
+
+    .container {
+      padding: 0 1rem;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Mobile About Section */
+    .about-content p {
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .contact-info {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-item {
+      font-size: 0.95rem;
+    }
+
+    /* Mobile Skills Section */
+    .skills-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .skill-card {
+      padding: 1.5rem;
+    }
+
+    .skill-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .skill-card ul {
+      gap: 0.5rem;
+    }
+
+    .skill-card li {
+      font-size: 0.9rem;
+      padding: 0.4rem 0.8rem;
+    }
+
+    /* Mobile Experience Section */
+    .timeline {
+      padding-left: 1rem;
+    }
+
+    .timeline-item {
+      margin-bottom: 2rem;
+    }
+
+    .timeline-content {
+      padding: 1.5rem;
+    }
+
+    .timeline-content h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-content .date {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .timeline-content li {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin: 0.6rem 0;
+    }
+
+    /* Mobile Projects Section */
+    .projects-grid {
+      gap: 2rem;
+    }
+
+    .project-card {
+      margin: 0 0.5rem;
+    }
+
+    .project-header {
+      padding: 1.5rem;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .project-icon {
+      font-size: 2.5rem;
+      align-self: center;
+    }
+
+    .project-header h3 {
+      font-size: 1.6rem;
+      margin-bottom: 0.8rem;
+      text-align: center;
+      width: 100%;
+    }
+
+    .project-tech {
+      font-size: 0.85rem;
+      text-align: center;
+      width: 100%;
+    }
+
+    .project-body {
+      padding: 1.5rem;
+    }
+
+    .project-body li {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 1.2rem 0;
+      padding-left: 1.2rem;
+    }
+
+    .project-body li::before {
+      font-size: 1rem;
+      left: 0;
+    }
+
+    /* Mobile Education Section */
+    .education-item {
+      padding: 1.5rem;
+    }
+
+    .education-item h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .education-item .date {
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .education-item p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* Mobile Footer */
+    .footer {
+      padding: 2rem 0;
+    }
+
+    .footer-content {
+      flex-direction: column;
+      gap: 1.5rem;
+      text-align: center;
+    }
+
+    .social-links {
+      justify-content: center;
+    }
+
+    .social-links a {
+      width: 45px;
+      height: 45px;
+      font-size: 1.3rem;
+    }
+
+    /* Hide particles on mobile */
+    .particle {
+      display: none;
+    }
+
+    /* Theme toggle mobile positioning */
+    .theme-toggle {
+      top: 1rem;
+      right: 1rem;
+      width: 45px;
+      height: 45px;
+    }
+
+    .theme-icon {
+      font-size: 1.2rem;
+    }
+  }
+
+  /* Extra small devices */
+  @media (max-width: 480px) {
+    .hero h1 {
+      font-size: 2rem;
+    }
+
+    .hero .subtitle {
+      font-size: 1rem;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+    }
+
+    .project-header h3 {
+      font-size: 1.4rem;
+    }
+
+    .nav-menu {
+      width: 90%;
+    }
+
+    .container {
+      padding: 0 0.8rem;
     }
   }
 `;
@@ -1157,6 +1430,26 @@ const Navigation = () => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (isMenuOpen && !event.target.closest('.nav-container')) {
+                setIsMenuOpen(false);
+            }
+        };
+
+        if (isMenuOpen) {
+            document.addEventListener('click', handleClickOutside);
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+            document.body.style.overflow = 'unset';
+        };
+    }, [isMenuOpen]);
 
     const scrollToSection = (id) => {
         const element = document.getElementById(id);
@@ -1477,9 +1770,9 @@ const Projects = () => {
             tech: "PYTHON • AWS • POSTGRESQL • DOCKER",
             icon: "⚡",
             achievements: [
-                "Architected and deployed a global proxy network spanning 300+ edge locations to intercept and monitor LLM API calls with sub-100ms latency, ensuring seamless routing to appropriate model providers",
-                "Engineered a real-time data ingestion pipeline processing 10M+ API requests daily, capturing comprehensive metadata including tokens, costs, models, and response times for instant analytics and reporting",
-                "Developed an intelligent cost optimization engine that analyzes usage patterns and provides actionable insights, helping companies reduce their LLM spending by 30-50% through budget alerts and usage recommendations"
+                "Built global proxy network with 300+ edge locations for LLM API monitoring with sub-100ms latency",
+                "Engineered real-time data pipeline processing 10M+ daily requests for comprehensive analytics and reporting",
+                "Developed cost optimization engine reducing LLM spending by 30-50% through intelligent usage analysis"
             ]
         },
         {
@@ -1487,9 +1780,9 @@ const Projects = () => {
             tech: "TABLEAU • SQL • DBT • COHORT ANALYSIS",
             icon: "📊",
             achievements: [
-                "Designed and built comprehensive interactive dashboards featuring customer lifetime value analysis, retention metrics, and behavioral segmentation, enabling data-driven decision making that improved customer retention strategies by 40%",
-                "Implemented advanced automated cohort analysis and churn prediction models that identify at-risk customers 60 days before departure, allowing proactive intervention and reducing customer churn by 25%",
-                "Created a self-service analytics platform empowering sales and marketing teams to generate insights independently, reducing manual report requests by 70% and accelerating decision-making processes"
+                "Built interactive dashboards with customer lifetime value analysis and behavioral segmentation, improving retention by 40%",
+                "Implemented automated cohort analysis and churn prediction models, reducing customer churn by 25%",
+                "Created self-service analytics platform reducing manual report requests by 70% and accelerating decision-making"
             ]
         },
         {
@@ -1497,9 +1790,9 @@ const Projects = () => {
             tech: "SQL SERVER • DOCKER • ETL PIPELINES",
             icon: "🏗️",
             achievements: [
-                "Designed and implemented a modern data warehouse architecture using the Medallion (Bronze, Silver, Gold) pattern, ensuring data quality and enabling scalable analytics across multiple business units",
-                "Built robust ETL pipelines with intelligent error handling and data validation, processing over 10,000 records from CRM and ERP systems while improving data processing efficiency by 40% and reducing manual intervention",
-                "Transformed legacy data systems into a clean, queryable star schema with optimized fact and dimension tables, resulting in 40% faster query performance and enabling real-time business intelligence capabilities"
+                "Implemented modern data warehouse using Medallion (Bronze, Silver, Gold) pattern for scalable analytics across business units",
+                "Built robust ETL pipelines processing 10,000+ records from CRM/ERP systems, improving efficiency by 40%",
+                "Transformed legacy systems into optimized star schema, achieving 40% faster query performance and real-time BI"
             ]
         }
     ];
