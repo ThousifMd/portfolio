@@ -832,23 +832,17 @@ const styles = `
     background: var(--black);
   }
 
-  .projects-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+  .projects-container {
+    max-width: 800px;
+    margin: 0 auto;
     padding: 2rem 0;
   }
 
   .project-card {
-    background: linear-gradient(145deg, var(--darkgrey) 0%, #2a2a2a 100%);
-    border: 1px solid var(--grey);
-    border-radius: 20px;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
+    margin-bottom: 3rem;
     opacity: 0;
-    transform: translateY(30px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transform: translateY(20px);
+    transition: all 0.6s ease;
   }
 
   .project-card.visible {
@@ -856,119 +850,28 @@ const styles = `
     transform: translateY(0);
   }
 
-  .project-card::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.03), transparent);
-    transform: rotate(45deg);
-    transition: all 0.6s;
-  }
-
-  .project-card:hover {
-    transform: translateY(-15px) scale(1.02);
-    border-color: var(--white);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
-  }
-
-  .project-card:hover::after {
-    animation: shine 1.5s;
-  }
-
-  @keyframes shine {
-    0% { top: -50%; right: -50%; }
-    100% { top: 150%; right: 150%; }
-  }
-
-  .project-header {
-    background: linear-gradient(135deg, var(--black) 0%, #1a1a1a 100%);
-    color: white;
-    padding: 1.8rem;
-    border-bottom: 2px solid var(--grey);
-    position: relative;
-  }
-
-  .project-header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
-    background-size: 300% 100%;
-    animation: gradientShift 3s ease infinite;
-  }
-
-  @keyframes gradientShift {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-
-  .project-header {
-    display: flex;
-    align-items: center;
-    gap: 1.2rem;
-  }
-
-  .project-icon {
-    font-size: 2.2rem;
-    opacity: 0.9;
-    flex-shrink: 0;
-  }
-
-  .project-header h3 {
-    font-size: 1.8rem;
-    margin-bottom: 0.8rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    flex: 1;
+  .project-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--white);
+    margin: 0 0 0.5rem 0;
+    line-height: 1.3;
   }
 
   .project-tech {
     font-size: 0.9rem;
     color: var(--midgrey);
-    letter-spacing: 1px;
     font-weight: 500;
-    text-transform: uppercase;
-    opacity: 0.8;
+    font-style: italic;
+    margin-bottom: 1rem;
+    display: block;
   }
 
-  .project-body {
-    padding: 1.8rem;
-    background: rgba(0, 0, 0, 0.2);
-  }
-
-  .project-body ul {
-    margin-left: 1.2rem;
+  .project-description {
     color: var(--lightgrey);
-    list-style: none;
-    padding-left: 0;
-  }
-
-  .project-body li {
-    margin: 1rem 0;
     font-size: 1rem;
     line-height: 1.6;
-    position: relative;
-    padding-left: 1.2rem;
-    font-weight: 400;
-  }
-
-  .project-body li::before {
-    content: '●';
-    position: absolute;
-    left: -1.2rem;
-    color: var(--white);
-    font-size: 1rem;
-    opacity: 0.8;
-    font-weight: bold;
+    margin: 0;
   }
 
   #education {
@@ -1255,10 +1158,18 @@ const styles = `
     }
 
     /* Mobile About Section */
-    .about-content p {
-      font-size: 1rem;
-      line-height: 1.7;
-      margin-bottom: 2rem;
+    .chat-bubble {
+      max-width: 85%;
+      padding: 1rem 1.2rem;
+    }
+
+    .chat-bubble p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .chat-label {
+      font-size: 0.75rem;
     }
 
     .contact-info {
@@ -1324,53 +1235,25 @@ const styles = `
     }
 
     /* Mobile Projects Section */
-    .projects-grid {
-      gap: 2rem;
+    .projects-container {
+      padding: 1.5rem 0;
     }
 
     .project-card {
-      margin: 0 0.5rem;
+      margin-bottom: 2.5rem;
     }
 
-    .project-header {
-      padding: 1.5rem;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-
-    .project-icon {
-      font-size: 2.5rem;
-      align-self: center;
-    }
-
-    .project-header h3 {
-      font-size: 1.6rem;
-      margin-bottom: 0.8rem;
-      text-align: center;
-      width: 100%;
+    .project-title {
+      font-size: 1.2rem;
     }
 
     .project-tech {
       font-size: 0.85rem;
-      text-align: center;
-      width: 100%;
     }
 
-    .project-body {
-      padding: 1.5rem;
-    }
-
-    .project-body li {
-      font-size: 1rem;
-      line-height: 1.6;
-      margin: 1.2rem 0;
-      padding-left: 1.2rem;
-    }
-
-    .project-body li::before {
-      font-size: 1rem;
-      left: 0;
+    .project-description {
+      font-size: 0.95rem;
+      line-height: 1.5;
     }
 
     /* Mobile Education Section */
@@ -1653,7 +1536,9 @@ const About = () => {
       <div className="container">
         <h2 ref={titleRef} className={`section-title ${isTitleVisible ? 'visible' : ''}`}>ABOUT</h2>
         <div className="about-content">
-          <p>Data professional with 3+ years of experience in analytics, data quality, and integration across enterprise systems. Skilled in SQL, Python, Tableau, and Snowflake, with a strong track record of building scalable data workflows, defining KPIs, conducting A/B tests, and delivering insights that drive product decisions. Experienced in dbt, AWS, cohort analysis, and behavioral analytics tools, and passionate about turning complex data into actionable strategies.</p>
+          <p>Hey there! I'm Thousif, a data professional with 3+ years of experience turning raw information into actionable insights. I specialize in SQL, Python, Tableau, and Snowflake, and I love solving messy data problems that others find too complex.</p>
+
+          <p>I bridge the gap between technical details and business goals, making complex data understandable for everyone.</p>
 
           <div className="contact-info">
             <div className="contact-item">
@@ -1804,14 +1689,14 @@ const Experience = () => {
       ]
     },
     {
-      title: "Business Intelligence Intern",
-      company: "INTERWORKS",
+      title: "Data Analyst Intern",
+      company: "DHL",
       date: "MAY 2024 – AUG 2024",
       achievements: [
-        "Enhanced NHS England's population analytics dashboards in Tableau Cloud, improving performance and usability for over 5 billion health records used in strategic planning",
-        "Designed parameterized dashboards to visualize cohort behavior, retention, and demographic trends, enabling stakeholders to make faster, evidence-based decisions",
-        "Developed and executed data validation workflows across multiple sources and authored documentation that increased adoption of analytics solutions by non-technical teams",
-        "Collaborated using Git/GitHub, Jira, and agile practices, contributing to sprint planning and cross-functional feature development"
+        "Assisted in designing and maintaining data pipelines to process large-scale supply chain datasets, improving data availability and supporting inventory optimisation decisions",
+        "Wrote SQL queries and built Tableau dashboards to analyse SKU-level trends, helping identify opportunities to reduce average inventory by 18% and improve working capital visibility",
+        "Collaborated with logistics teams to collect, clean, and analyse operational data, applying data-driven approaches to improve picking and packing efficiency and reduce order errors by 15%",
+        "Performed exploratory data analysis on high-volume inventory data to detect imbalances and contributed to reallocation strategies that saved approximately $250,000 in carrying costs"
       ]
     },
     {
@@ -1871,44 +1756,29 @@ const Projects = () => {
 
   const projects = [
     {
-      title: "Apilens - LLM Analytics Platform",
-      tech: "PYTHON • AWS • POSTGRESQL • DOCKER",
-      icon: "⚡",
-      achievements: [
-        "Built global proxy network with 300+ edge locations for LLM API monitoring with sub-100ms latency",
-        "Engineered real-time data pipeline processing 10M+ daily requests for comprehensive analytics and reporting",
-        "Developed cost optimization engine reducing LLM spending by 30-50% through intelligent usage analysis"
-      ]
+      title: "ApiLens - LLM API Analytics & Cost Monitoring Platform",
+      tech: "Python, AWS CloudFront, PostgreSQL",
+      description: "Built a global proxy backend to intercept and route LLM API calls across 300+ edge locations, designed real-time data ingestion layer with PostgreSQL storage, and developed cost analytics engine with interactive dashboards for usage optimization."
     },
     {
-      title: "Customer Analytics Dashboard",
-      tech: "TABLEAU • SQL • DBT • COHORT ANALYSIS",
-      icon: "📊",
-      achievements: [
-        "Built interactive dashboards with customer lifetime value analysis and behavioral segmentation, improving retention by 40%",
-        "Implemented automated cohort analysis and churn prediction models, reducing customer churn by 25%",
-        "Created self-service analytics platform reducing manual report requests by 70% and accelerating decision-making"
-      ]
+      title: "Sales & Customer Performance Dashboard",
+      tech: "Tableau, SQL Server, dbt",
+      description: "Created interactive Tableau dashboards with retention KPIs and dynamic filters, built star-schema dimensional model using dbt for efficient queries, and performed cohort analysis to influence sales strategy and product prioritization."
     },
     {
-      title: "Enterprise Data Warehouse",
-      tech: "SQL SERVER • DOCKER • ETL PIPELINES",
-      icon: "🏗️",
-      achievements: [
-        "Implemented modern data warehouse using Medallion (Bronze, Silver, Gold) pattern for scalable analytics across business units",
-        "Built robust ETL pipelines processing 10,000+ records from CRM/ERP systems, improving efficiency by 40%",
-        "Transformed legacy systems into optimized star schema, achieving 40% faster query performance and real-time BI"
-      ]
+      title: "Enterprise Data Warehouse - Medallion Architecture",
+      tech: "SQL Server, Docker, Azure Data Studio",
+      description: "Implemented modern data warehouse using bronze, silver, and gold layers, built ETL pipelines processing 10,000+ records from CRM/ERP systems, and restructured data into optimized star schema improving query performance by 40%."
     }
   ];
 
   return (
     <section id="projects">
       <div className="container">
-        <h2 ref={titleRef} className={`section-title ${isTitleVisible ? 'visible' : ''}`}>PROJECTS</h2>
-        <div className="projects-grid">
+        <h2 ref={titleRef} className={`section-title ${isTitleVisible ? 'visible' : ''}`}>ACADEMIC PROJECTS</h2>
+        <div className="projects-container">
           {projects.map((project, index) => (
-            <ProjectCard key={index} project={project} delay={index * 0.1} />
+            <ProjectItem key={index} project={project} index={index} />
           ))}
         </div>
       </div>
@@ -1916,7 +1786,7 @@ const Projects = () => {
   );
 };
 
-const ProjectCard = ({ project, delay }) => {
+const ProjectItem = ({ project, index }) => {
   const ref = useRef(null);
   const isVisible = useIntersectionObserver(ref);
 
@@ -1924,20 +1794,10 @@ const ProjectCard = ({ project, delay }) => {
     <div
       ref={ref}
       className={`project-card ${isVisible ? 'visible' : ''}`}
-      style={{ transitionDelay: `${delay}s` }}
     >
-      <div className="project-header">
-        <div className="project-icon">{project.icon}</div>
-        <h3>{project.title}</h3>
-        <p className="project-tech">{project.tech}</p>
-      </div>
-      <div className="project-body">
-        <ul>
-          {project.achievements.map((achievement, i) => (
-            <li key={i}>{achievement}</li>
-          ))}
-        </ul>
-      </div>
+      <h3 className="project-title">{project.title}</h3>
+      <span className="project-tech">{project.tech}</span>
+      <p className="project-description">{project.description}</p>
     </div>
   );
 };
