@@ -1536,9 +1536,7 @@ const About = () => {
       <div className="container">
         <h2 ref={titleRef} className={`section-title ${isTitleVisible ? 'visible' : ''}`}>ABOUT</h2>
         <div className="about-content">
-          <p>Hey there! I'm Thousif, a data professional with 3+ years of experience turning raw information into actionable insights. I specialize in SQL, Python, Tableau, and Snowflake, and I love solving messy data problems that others find too complex.</p>
-
-          <p>I bridge the gap between technical details and business goals, making complex data understandable for everyone.</p>
+          <p>Data Analyst with 3+ years of experience using SQL, Python, and Tableau to turn data into actionable insights. Skilled in complex queries, data transformation, and building interactive dashboards. Passionate about uncovering patterns and driving operational improvements through data-driven solutions.</p>
 
           <div className="contact-info">
             <div className="contact-item">
@@ -1689,14 +1687,13 @@ const Experience = () => {
       ]
     },
     {
-      title: "Data Analyst Intern",
-      company: "DHL",
-      date: "MAY 2024 – AUG 2024",
+      title: "IT Asset Analyst",
+      company: "OKLAHOMA STATE UNIVERSITY",
+      date: "AUG 2023 – MAY 2024",
       achievements: [
-        "Assisted in designing and maintaining data pipelines to process large-scale supply chain datasets, improving data availability and supporting inventory optimisation decisions",
-        "Wrote SQL queries and built Tableau dashboards to analyse SKU-level trends, helping identify opportunities to reduce average inventory by 18% and improve working capital visibility",
-        "Collaborated with logistics teams to collect, clean, and analyse operational data, applying data-driven approaches to improve picking and packing efficiency and reduce order errors by 15%",
-        "Performed exploratory data analysis on high-volume inventory data to detect imbalances and contributed to reallocation strategies that saved approximately $250,000 in carrying costs"
+        "Managed and maintained a database of 5,000+ IT assets, using SQL to track device ownership, warranty status, and financial details for accurate budgeting and lifecycle planning",
+        "Automated inventory reconciliation with Python scripts and SQL checks, improving asset tracking accuracy to 98% and catching recurring billing and ownership discrepancies before audits",
+        "Analyzed help desk and usage data to spot high-failure hardware and underused software licenses, creating Tableau reports that reduced repeat support tickets by 25% and improved asset allocation across departments"
       ]
     },
     {
